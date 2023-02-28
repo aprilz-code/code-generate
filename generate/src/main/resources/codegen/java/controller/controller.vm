@@ -19,8 +19,8 @@ import static ${CommonResultClassName}.success;
 
 import ${ExcelUtilsClassName};
 
-import ${OperateLogClassName};
-import static ${OperateTypeEnumClassName}.*;
+##import ${OperateLogClassName};
+##import static ${OperateTypeEnumClassName}.*;
 
 import ${basePackage}.controller.${table.businessName}.vo.*;
 import ${basePackage}.dal.dataobject.${table.businessName}.${table.className}DO;
@@ -97,7 +97,7 @@ public class ${sceneEnum.prefixClass}${table.className}Controller {
     @ApiOperation("导出${table.classComment} Excel")
 #if ($sceneEnum.scene == 1)    @PreAuthorize("@ss.hasPermission('${permissionPrefix}:export')")#end
 
-    @OperateLog(type = EXPORT)
+ ##   @OperateLog(type = EXPORT)
     public void export${simpleClassName}Excel(@Valid ${sceneEnum.prefixClass}${table.className}ExportReqVO exportReqVO,
               HttpServletResponse response) throws IOException {
         List<${table.className}DO> list = ${classNameVar}Service.get${simpleClassName}List(exportReqVO);
