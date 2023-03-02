@@ -1,5 +1,6 @@
 package ${basePackage}.service.impl.${table.businessName};
 
+import  ${basePackage}.service.${table.businessName}.${table.className}Service;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -10,7 +11,7 @@ import ${basePackage}.dal.dataobject.${table.businessName}.${table.className}DO;
 import ${PageResultClassName};
 
 import ${basePackage}.convert.${table.businessName}.${table.className}Convert;
-import ${basePackage}.dal.${table.businessName}.${table.className}Mapper;
+import ${basePackage}.dal.mapper.${table.className}Mapper;
 
 import static ${ServiceExceptionUtilClassName}.exception;
 import static ${basePackage}.enums.ErrorCodeConstants.*;

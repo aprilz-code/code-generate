@@ -10,7 +10,7 @@ import ${baseFrameworkPackage}.test.core.ut.BaseDbUnitTest;
 
 import ${basePackage}.controller.${table.businessName}.vo.*;
 import ${basePackage}.dal.dataobject.${table.businessName}.${table.className}DO;
-import ${basePackage}.dal.mysql.${table.businessName}.${table.className}Mapper;
+import ${basePackage}.dal.${table.businessName}.${table.className}Mapper;
 import ${PageResultClassName};
 
 import javax.annotation.Resource;

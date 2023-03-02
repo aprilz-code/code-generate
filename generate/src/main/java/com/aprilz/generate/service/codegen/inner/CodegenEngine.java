@@ -15,10 +15,7 @@ import com.aprilz.generate.config.CodegenProperties;
 import com.aprilz.generate.entity.CodegenColumnDO;
 import com.aprilz.generate.entity.CodegenTableDO;
 import com.aprilz.generate.enums.codegen.CodegenSceneEnum;
-import com.aprilz.generate.utils.CollectionUtils;
-import com.aprilz.generate.utils.DateUtils;
-import com.aprilz.generate.utils.ExcelUtils;
-import com.aprilz.generate.utils.ServiceExceptionUtil;
+import com.aprilz.generate.utils.*;
 import com.google.common.collect.Maps;
 import org.springframework.stereotype.Component;
 
@@ -63,7 +60,7 @@ public class CodegenEngine {
             .put(javaTemplatePath("dal/do"),
                     javaModuleImplMainFilePath("dal/dataobject/${table.businessName}/${table.className}DO"))
             .put(javaTemplatePath("dal/mapper"),
-                    javaModuleImplMainFilePath("dal/${table.businessName}/${table.className}Mapper"))
+                    javaModuleImplMainFilePath("dal/mapper/${table.className}Mapper"))
             .put(javaTemplatePath("dal/mapper.xml"), mapperXmlFilePath())
             .put(javaTemplatePath("service/impl/serviceImpl"),
                     javaModuleImplMainFilePath("service/${table.businessName}/impl/${table.className}ServiceImpl"))
@@ -117,22 +114,22 @@ public class CodegenEngine {
         globalBindingMap.put("baseFrameworkPackage", codegenProperties.getBasePackage()
                 + '.' + "framework"); // 用于后续获取测试类的 package 地址
         // 全局 Java Bean
-        globalBindingMap.put("CommonResultClassName", CommonResult.class.getName());
-        globalBindingMap.put("PageResultClassName", PageResult.class.getName());
+        globalBindingMap.put("CommonResultClassName", "com.hujiang.common.core.pojo.CommonResult");
+        globalBindingMap.put("PageResultClassName", "com.hujiang.common.core.pojo.PageResult");
         // VO 类，独有字段
-        globalBindingMap.put("PageParamClassName", PageParam.class.getName());
+        globalBindingMap.put("PageParamClassName", "com.hujiang.common.core.pojo.PageParam");
         //字典TODO
       //  globalBindingMap.put("DictFormatClassName", DictFormat.class.getName());
         // DO 类，独有字段
-        globalBindingMap.put("BaseDOClassName", BaseDO.class.getName());
+        globalBindingMap.put("BaseDOClassName", "com.hujiang.common.core.pojo.domain.BaseDO");
         globalBindingMap.put("baseDOFields", CodegenBuilder.BASE_DO_FIELDS);
-        globalBindingMap.put("QueryWrapperClassName", LambdaQueryWrapperX.class.getName());
-        globalBindingMap.put("BaseMapperClassName", BaseMapperX.class.getName());
+        globalBindingMap.put("QueryWrapperClassName", "com.hujiang.mybatis.query.LambdaQueryWrapperX");
+        globalBindingMap.put("BaseMapperClassName", "com.hujiang.mybatis.mapper.BaseMapperX");
         // Util 工具类
-        globalBindingMap.put("ServiceExceptionUtilClassName", ServiceExceptionUtil.class.getName());
-        globalBindingMap.put("DateUtilsClassName", DateUtils.class.getName());
-        globalBindingMap.put("ExcelUtilsClassName", ExcelUtils.class.getName());
-//        globalBindingMap.put("ObjectUtilsClassName", ObjectUtils.class.getName());
+        globalBindingMap.put("ServiceExceptionUtilClassName", "com.hujiang.common.core.utils.ServiceExceptionUtil");
+        globalBindingMap.put("DateUtilsClassName", "com.hujiang.common.core.utils.DateUtils");
+        globalBindingMap.put("ExcelUtilsClassName", "com.hujiang.excel.core.util.ExcelUtils");
+        globalBindingMap.put("ObjectUtilsClassName", "com.hujiang.common.core.utils.ObjectUtils");
 //        globalBindingMap.put("DictConvertClassName", DictConvert.class.getName());
 //        globalBindingMap.put("OperateLogClassName", OperateLog.class.getName());
 //        globalBindingMap.put("OperateTypeEnumClassName", OperateTypeEnum.class.getName());
