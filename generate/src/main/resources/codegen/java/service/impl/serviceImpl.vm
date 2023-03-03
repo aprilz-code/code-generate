@@ -1,6 +1,7 @@
 package ${basePackage}.service.impl.${table.businessName};
 
 import  ${basePackage}.service.${table.businessName}.${table.className}Service;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -23,7 +24,7 @@ import static ${basePackage}.enums.ErrorCodeConstants.*;
  */
 @Service
 @Validated
-public class ${table.className}ServiceImpl implements ${table.className}Service {
+public class ${table.className}ServiceImpl extends ServiceImpl<${table.className}Mapper, ${table.className}DO> implements ${table.className}Service {
 
     @Resource
     private ${table.className}Mapper ${classNameVar}Mapper;
