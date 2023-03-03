@@ -74,7 +74,7 @@ public interface ${table.className}Service  extends IService<${table.className}D
     * @param id 查询条件
     * 不存在抛出异常
     */
-    void get${simpleClassName}List(Long id);
+    void validate${table.className}Exists(Long id);
 
 
 }
