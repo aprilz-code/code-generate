@@ -64,8 +64,8 @@ public class CodegenController {
     @GetMapping("/db/table/list")
     @ApiOperation(value = "获得数据库自带的表定义列表", notes = "会过滤掉已经导入 Codegen 的表")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "name", value = "表名，模糊匹配", example = "yudao", dataTypeClass = String.class),
-            @ApiImplicitParam(name = "comment", value = "描述，模糊匹配", example = "芋道", dataTypeClass = String.class)
+            @ApiImplicitParam(name = "name", value = "表名，模糊匹配", example = "表名", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "comment", value = "描述，模糊匹配", example = "描述", dataTypeClass = String.class)
     })
     public CommonResult<List<DatabaseTableRespVO>> getDatabaseTableList(
             @RequestParam(value = "name", required = false) String name,

@@ -20,7 +20,7 @@ public class CodegenTableBaseVO {
     @NotNull(message = "表名称不能为空")
     private String tableName;
 
-    @ApiModelProperty(value = "表描述", required = true, example = "芋道")
+    @ApiModelProperty(value = "表描述", required = true, example = "表描述")
     @NotNull(message = "表描述不能为空")
     private String tableComment;
 
@@ -43,7 +43,7 @@ public class CodegenTableBaseVO {
     @NotNull(message = "类描述不能为空")
     private String classComment;
 
-    @ApiModelProperty(value = "作者", required = true, example = "芋道源码")
+    @ApiModelProperty(value = "作者", required = true, example = "作者")
     @NotNull(message = "作者不能为空")
     private String author;
 
