@@ -51,7 +51,7 @@ public class ${table.className}ServiceImpl extends ServiceImpl<${table.className
         ${classNameVar}Mapper.deleteById(id);
     }
 
-    private void validate${simpleClassName}Exists(${primaryColumn.javaType} id) {
+    public void validate${simpleClassName}Exists(${primaryColumn.javaType} id) {
         if (${classNameVar}Mapper.selectById(id) == null) {
             throw exception(${simpleClassName_underlineCase.toUpperCase()}_NOT_EXISTS);
         }
