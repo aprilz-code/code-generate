@@ -3,6 +3,7 @@ package com.aprilz.generate.service.codegen;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.StrUtil;
+import com.aprilz.generate.config.DataSourceProperties;
 import com.aprilz.generate.entity.DataSourceConfigDO;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
@@ -20,13 +21,16 @@ import java.util.stream.Collectors;
 /**
  * 数据库表 Service 实现类
  *
- 
+
  */
 @Service
 public class DatabaseTableServiceImpl implements DatabaseTableService {
 
 //    @Resource
 //    private DataSourceConfigService dataSourceConfigService;
+
+    @Resource
+    private DataSourceProperties dataSourceProperties;
 
     @Override
     public List<TableInfo> getTableList(Long dataSourceConfigId, String nameLike, String commentLike) {
@@ -48,9 +52,9 @@ public class DatabaseTableServiceImpl implements DatabaseTableService {
         DataSourceConfigDO config = new DataSourceConfigDO();
         config.setId(1L);
         config.setName("master");
-        config.setPassword("123456");
-        config.setUsername("root");
-        config.setUrl("jdbc:mysql://localhost:3306/generate?useUnicode=true&allowMultiQueries=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true");
+        config.setPassword(dataSourceProperties.getPassword());
+        config.setUsername(dataSourceProperties.getUsername());
+        config.setUrl(dataSourceProperties.getUrl());
        // Assert.notNull(config, "数据源({}) 不存在！", dataSourceConfigId);
 
         // 使用 MyBatis Plus Generator 解析表结构

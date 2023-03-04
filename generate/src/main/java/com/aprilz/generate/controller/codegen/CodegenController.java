@@ -4,6 +4,7 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.ZipUtil;
 import com.aprilz.generate.common.api.CommonResult;
 import com.aprilz.generate.common.api.PageResult;
+import com.aprilz.generate.config.DataSourceProperties;
 import com.aprilz.generate.controller.codegen.vo.CodegenCreateListReqVO;
 import com.aprilz.generate.controller.codegen.vo.CodegenDetailRespVO;
 import com.aprilz.generate.controller.codegen.vo.CodegenPreviewRespVO;
@@ -46,6 +47,9 @@ public class CodegenController {
     @Resource
     private CodegenService codegenService;
 
+    @Resource
+    private DataSourceProperties dataSourceProperties;
+
 
     @GetMapping("/getDataSourceList")
     @ApiOperation("获得数据源配置列表,单数据源返回它本身")
@@ -54,9 +58,9 @@ public class CodegenController {
         DataSourceConfigDO config = new DataSourceConfigDO();
         config.setId(1L);
         config.setName("master");
-        config.setPassword("123456");
-        config.setUsername("root");
-        config.setUrl("jdbc:mysql://localhost:3306/generate?useUnicode=true&allowMultiQueries=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true");
+        config.setPassword(dataSourceProperties.getPassword());
+        config.setUsername(dataSourceProperties.getUsername());
+        config.setUrl(dataSourceProperties.getUrl());
         list.add(config);
         return success(list);
     }

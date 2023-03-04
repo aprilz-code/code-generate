@@ -16,7 +16,7 @@ public class DataSourceConfigBaseVO {
     @NotNull(message = "数据源名称不能为空")
     private String name;
 
-    @ApiModelProperty(value = "数据源连接", required = true, example = "jdbc:mysql://127.0.0.1:3306/ruoyi-vue-pro")
+    @ApiModelProperty(value = "数据源连接", required = true, example = "1")
     @NotNull(message = "数据源连接不能为空")
     private String url;
 
