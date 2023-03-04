@@ -1,0 +1,17 @@
+version: '3'
+services:
+  #授权服务
+  mogu_admin:
+    image: code_gengrate:latest
+    container_name: gengrate
+    restart: always
+    ports:
+      - 8085:8085
+    networks:
+      - ap
+    volumes:
+      - ../log/:/logs/
+    privileged: true
+networks:
+  ap:
+    external: true

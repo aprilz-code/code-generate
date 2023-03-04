@@ -47,8 +47,8 @@ public class CodegenController {
     @Resource
     private CodegenService codegenService;
 
-    @Resource
-    private DataSourceProperties dataSourceProperties;
+//    @Resource
+//    private DataSourceProperties dataSourceProperties;
 
 
     @GetMapping("/getDataSourceList")
@@ -58,9 +58,9 @@ public class CodegenController {
         DataSourceConfigDO config = new DataSourceConfigDO();
         config.setId(1L);
         config.setName("master");
-        config.setPassword(dataSourceProperties.getPassword());
-        config.setUsername(dataSourceProperties.getUsername());
-        config.setUrl(dataSourceProperties.getUrl());
+//        config.setPassword(dataSourceProperties.getPassword());
+//        config.setUsername(dataSourceProperties.getUsername());
+//        config.setUrl(dataSourceProperties.getUrl());
         list.add(config);
         return success(list);
     }
