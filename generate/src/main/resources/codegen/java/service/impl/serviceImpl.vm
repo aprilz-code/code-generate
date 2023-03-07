@@ -31,23 +31,19 @@ public class ${table.className}ServiceImpl extends ServiceImpl<${table.className
 
     @Override
     public ${primaryColumn.javaType} create${simpleClassName}(${sceneEnum.prefixClass}${table.className}CreateReqVO createReqVO) {
-        // 插入
         ${table.className}DO ${classNameVar} = ${table.className}Convert.INSTANCE.convert(createReqVO);
         ${classNameVar}Mapper.insert(${classNameVar});
-        // 返回
         return ${classNameVar}.getId();
     }
 
     @Override
     public void update${simpleClassName}(${sceneEnum.prefixClass}${table.className}UpdateReqVO updateReqVO) {
-        // 更新
         ${table.className}DO updateObj = ${table.className}Convert.INSTANCE.convert(updateReqVO);
         ${classNameVar}Mapper.updateById(updateObj);
     }
 
     @Override
     public void delete${simpleClassName}(${primaryColumn.javaType} id) {
-        // 删除
         ${classNameVar}Mapper.deleteById(id);
     }
 
