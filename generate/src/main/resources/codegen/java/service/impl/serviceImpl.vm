@@ -3,6 +3,7 @@ package ${basePackage}.service.impl.${table.businessName};
 import  ${basePackage}.service.${table.businessName}.${table.className}Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
@@ -29,6 +30,7 @@ public class ${table.className}ServiceImpl extends ServiceImpl<${table.className
     @Resource
     private ${table.className}Mapper ${classNameVar}Mapper;
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public ${primaryColumn.javaType} create${simpleClassName}(${sceneEnum.prefixClass}${table.className}CreateReqVO createReqVO) {
         ${table.className}DO ${classNameVar} = ${table.className}Convert.INSTANCE.convert(createReqVO);
@@ -36,12 +38,14 @@ public class ${table.className}ServiceImpl extends ServiceImpl<${table.className
         return ${classNameVar}.getId();
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void update${simpleClassName}(${sceneEnum.prefixClass}${table.className}UpdateReqVO updateReqVO) {
         ${table.className}DO updateObj = ${table.className}Convert.INSTANCE.convert(updateReqVO);
         ${classNameVar}Mapper.updateById(updateObj);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void delete${simpleClassName}(${primaryColumn.javaType} id) {
         ${classNameVar}Mapper.deleteById(id);
