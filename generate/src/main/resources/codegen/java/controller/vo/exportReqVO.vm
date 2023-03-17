@@ -13,6 +13,20 @@ import org.springframework.format.annotation.DateTimeFormat;
 import static ${DateUtilsClassName}.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 #break
 #end
+#if (${column.createOperation} && ${column.updateOperation} && ${column.listOperationResult}
+&& ${column.javaType} == "LocalDate")
+import org.springframework.format.annotation.DateTimeFormat;
+
+import static ${DateUtilsClassName}.FORMAT_YEAR_MONTH_DAY;
+    #break
+#end
+#if (${column.createOperation} && ${column.updateOperation} && ${column.listOperationResult}
+&& ${column.javaType} == "LocalTime")
+import org.springframework.format.annotation.DateTimeFormat;
+
+import static ${DateUtilsClassName}.FORMAT_HOUR_MINUTE_SECOND;
+    #break
+#end
 #end
 ## 字段模板
 #macro(columnTpl $prefix $prefixStr)

@@ -6,6 +6,12 @@ import lombok.*;
 import java.time.LocalDateTime;
 #break
 #end
+#if (${column.javaType} == "LocalDate")
+import java.time.LocalDate;
+#end
+#if (${column.javaType} == "LocalTime")
+import java.time.LocalTime;
+#end
 #end
 import io.swagger.annotations.*;
 

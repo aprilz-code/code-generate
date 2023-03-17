@@ -9,6 +9,12 @@ import java.math.BigDecimal;
 #if (${column.javaType} == "LocalDateTime")
 import java.time.LocalDateTime;
 #end
+#if (${column.javaType} == "LocalDate")
+import java.time.LocalDate;
+#end
+#if (${column.javaType} == "LocalTime")
+import java.time.LocalTime;
+#end
 #end
 import io.swagger.annotations.*;
 import javax.validation.constraints.*;
@@ -20,6 +26,20 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import static ${DateUtilsClassName}.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 #break
+#end
+#if (${column.createOperation} && ${column.updateOperation} && ${column.listOperationResult}
+&& ${column.javaType} == "LocalDate")
+import org.springframework.format.annotation.DateTimeFormat;
+
+import static ${DateUtilsClassName}.FORMAT_YEAR_MONTH_DAY;
+    #break
+#end
+#if (${column.createOperation} && ${column.updateOperation} && ${column.listOperationResult}
+&& ${column.javaType} == "LocalTime")
+import org.springframework.format.annotation.DateTimeFormat;
+
+import static ${DateUtilsClassName}.FORMAT_HOUR_MINUTE_SECOND;
+    #break
 #end
 #end
 
