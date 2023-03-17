@@ -44,5 +44,5 @@ mybatis-plus:
 
 
 codegen:
-  base-package: com.hujiang.train
-  db-schemas: hujiang
+  base-package: com.aprilz.tiny
+  db-schemas: aprilz

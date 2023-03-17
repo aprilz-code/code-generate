@@ -85,7 +85,7 @@
 
 
     <logger name="org.springframework" level="ERROR"/>
-    <logger name="com.aprilz.tiny.mapper" level="DEBUG"/>
+    <logger name="com.aprilz.generate.mapper" level="DEBUG"/>
     <!--    <logger name="com.baomidou.example.mapper" level="DEBUG"/>-->
 
 </configuration>
