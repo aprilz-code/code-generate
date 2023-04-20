@@ -1,84 +1,92 @@
 <template>
-  <div class="app-container">
-    <!-- 操作工作栏 -->
-    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="表名称" prop="tableName">
-        <el-input v-model="queryParams.tableName" placeholder="请输入表名称" clearable
-                  @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="表描述" prop="tableComment">
-        <el-input v-model="queryParams.tableComment" placeholder="请输入表描述" clearable
-                  @keyup.enter.native="handleQuery"/>
-      </el-form-item>
-      <el-form-item label="创建时间" prop="createTime">
-        <el-date-picker v-model="queryParams.createTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
-                        range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" icon="el-icon-search" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" @click="resetQuery">重置</el-button>
-      </el-form-item>
-    </el-form>
+    <el-container>
+      <el-header>
+          <div class="github-link">
+                  <el-link type="success" href="https://github.com/aprilz-code/code-generate.git" target="_blank" >源码地址</el-link>
 
-    <!-- 操作工作栏 -->
-    <el-row :gutter="20" >
-<!--      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>-->
-      <el-col :span="6">
-        <el-button type="info" plain icon="el-icon-upload"  @click="openImportTable"
-        >导入</el-button>
-      </el-col>
-    </el-row>
+          </div>
+      </el-header>
+      <div class="app-container">
+        <!-- 操作工作栏 -->
+        <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
+          <el-form-item label="表名称" prop="tableName">
+            <el-input v-model="queryParams.tableName" placeholder="请输入表名称" clearable
+                      @keyup.enter.native="handleQuery"/>
+          </el-form-item>
+          <el-form-item label="表描述" prop="tableComment">
+            <el-input v-model="queryParams.tableComment" placeholder="请输入表描述" clearable
+                      @keyup.enter.native="handleQuery"/>
+          </el-form-item>
+          <el-form-item label="创建时间" prop="createTime">
+            <el-date-picker v-model="queryParams.createTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
+                            range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" icon="el-icon-search" @click="handleQuery">搜索</el-button>
+            <el-button icon="el-icon-refresh" @click="resetQuery">重置</el-button>
+          </el-form-item>
+        </el-form>
 
-    <!-- 列表 -->
-    <el-table v-loading="loading" :data="tableList">
-      <el-table-column label="数据源" align="center" :formatter="dataSourceConfigNameFormat"/>
-      <el-table-column label="表名称" align="center" prop="tableName" width="200"/>
-      <el-table-column label="表描述" align="center" prop="tableComment" :show-overflow-tooltip="true" width="120"/>
-      <el-table-column label="实体" align="center" prop="className" width="200"/>
-      <el-table-column label="创建时间" align="center" prop="createTime" width="180">
-        <template v-slot="scope">
-          <span>{{ parseTime(scope.row.createTime) }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="更新时间" align="center" prop="createTime" width="180">
-        <template v-slot="scope">
-          <span>{{ parseTime(scope.row.updateTime) }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作" align="center" width="300px" class-name="small-padding fixed-width">
-        <template v-slot="scope">
-          <el-button type="text" size="small" icon="el-icon-view" @click="handlePreview(scope.row)" >预览</el-button>
-          <el-button type="text" size="small" icon="el-icon-edit" @click="handleEditTable(scope.row)" >编辑</el-button>
-          <el-button type="text" size="small" icon="el-icon-delete" @click="handleDelete(scope.row)" >删除</el-button>
-          <el-button type="text" size="small" icon="el-icon-refresh" @click="handleSynchDb(scope.row)" >同步</el-button>
-          <el-button type="text" size="small" icon="el-icon-download" @click="handleGenTable(scope.row)" >生成代码</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-    <pagination v-show="total>0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize" @pagination="getList"/>
+        <!-- 操作工作栏 -->
+        <el-row :gutter="20" >
+    <!--      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>-->
+          <el-col :span="6">
+            <el-button type="info" plain icon="el-icon-upload"  @click="openImportTable"
+            >导入</el-button>
+          </el-col>
+        </el-row>
 
-    <!-- 预览界面 -->
-    <el-dialog :title="preview.title" :visible.sync="preview.open" width="90%" top="5vh" append-to-body class="scrollbar">
-      <el-row>
-        <el-col :span="7">
-          <el-tree :data="preview.fileTree" :expand-on-click-node="false" default-expand-all highlight-current
-                   @node-click="handleNodeClick"/>
-        </el-col>
-        <el-col :span="17">
-          <el-tabs v-model="preview.activeName">
-            <el-tab-pane v-for="item in preview.data" :label="item.filePath.substring(item.filePath.lastIndexOf('/') + 1)"
-                         :name="item.filePath" :key="item.filePath">
-              <el-link :underline="false" icon="el-icon-document-copy" v-clipboard:copy="item.code" v-clipboard:success="clipboardSuccess" style="float:right">复制</el-link>
-              <pre><code class="hljs" v-html="highlightedCode(item)"></code></pre>
-            </el-tab-pane>
-          </el-tabs>
-        </el-col>
-      </el-row>
-    </el-dialog>
+        <!-- 列表 -->
+        <el-table v-loading="loading" :data="tableList">
+          <el-table-column label="数据源" align="center" :formatter="dataSourceConfigNameFormat"/>
+          <el-table-column label="表名称" align="center" prop="tableName" width="200"/>
+          <el-table-column label="表描述" align="center" prop="tableComment" :show-overflow-tooltip="true" width="120"/>
+          <el-table-column label="实体" align="center" prop="className" width="200"/>
+          <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+            <template v-slot="scope">
+              <span>{{ parseTime(scope.row.createTime) }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="更新时间" align="center" prop="createTime" width="180">
+            <template v-slot="scope">
+              <span>{{ parseTime(scope.row.updateTime) }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="操作" align="center" width="300px" class-name="small-padding fixed-width">
+            <template v-slot="scope">
+              <el-button type="text" size="small" icon="el-icon-view" @click="handlePreview(scope.row)" >预览</el-button>
+              <el-button type="text" size="small" icon="el-icon-edit" @click="handleEditTable(scope.row)" >编辑</el-button>
+              <el-button type="text" size="small" icon="el-icon-delete" @click="handleDelete(scope.row)" >删除</el-button>
+              <el-button type="text" size="small" icon="el-icon-refresh" @click="handleSynchDb(scope.row)" >同步</el-button>
+              <el-button type="text" size="small" icon="el-icon-download" @click="handleGenTable(scope.row)" >生成代码</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+        <pagination v-show="total>0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize" @pagination="getList"/>
 
-    <!-- 基于 DB 导入 -->
-    <import-table ref="import" @ok="handleQuery" />
-  </div>
+        <!-- 预览界面 -->
+        <el-dialog :title="preview.title" :visible.sync="preview.open" width="90%" top="5vh" append-to-body class="scrollbar">
+          <el-row>
+            <el-col :span="7">
+              <el-tree :data="preview.fileTree" :expand-on-click-node="false" default-expand-all highlight-current
+                       @node-click="handleNodeClick"/>
+            </el-col>
+            <el-col :span="17">
+              <el-tabs v-model="preview.activeName">
+                <el-tab-pane v-for="item in preview.data" :label="item.filePath.substring(item.filePath.lastIndexOf('/') + 1)"
+                             :name="item.filePath" :key="item.filePath">
+                  <el-link :underline="false" icon="el-icon-document-copy" v-clipboard:copy="item.code" v-clipboard:success="clipboardSuccess" style="float:right">复制</el-link>
+                  <pre><code class="hljs" v-html="highlightedCode(item)"></code></pre>
+                </el-tab-pane>
+              </el-tabs>
+            </el-col>
+          </el-row>
+        </el-dialog>
+
+        <!-- 基于 DB 导入 -->
+        <import-table ref="import" @ok="handleQuery" />
+      </div>
+    </el-container>
 </template>
 
 <script>
@@ -317,3 +325,32 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.github-link {
+    height: 50px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 20px;
+}
+
+.github-link a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    text-decoration: none;
+    font-size: 18px;
+    margin-right: 5px;
+    letter-spacing: 2px;
+}
+
+.github-link i {
+    font-size: 24px;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+</style>
