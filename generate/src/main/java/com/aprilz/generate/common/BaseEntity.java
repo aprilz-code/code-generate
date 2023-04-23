@@ -10,12 +10,14 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 基础实体对象
+ * 基础实体类
  *
-
+ * @author xjr
+ * @version 1.0
+ * @date 2023−03−24 14:34
  */
 @Data
-public abstract class BaseDO implements Serializable {
+public abstract class BaseEntity implements Serializable {
 
     /**
      * 创建时间
@@ -46,5 +48,4 @@ public abstract class BaseDO implements Serializable {
      */
     @TableLogic(value = "0",delval = "1")
     private Boolean delFlag;
-
 }

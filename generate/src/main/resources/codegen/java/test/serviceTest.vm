@@ -1,4 +1,4 @@
-package ${basePackage}.service.${table.businessName};
+package ${basePackage}.${table.moduleName}.service.${table.businessName};
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -6,7 +6,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import javax.annotation.Resource;
 
-import ${baseFrameworkPackage}.test.core.ut.BaseDbUnitTest;
 
 import ${basePackage}.controller.${table.businessName}.vo.*;
 import ${basePackage}.dal.dataobject.${table.businessName}.${table.className}DO;
@@ -26,6 +25,7 @@ import static ${ObjectUtilsClassName}.*;
 import static ${DateUtilsClassName}.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import org.springframework.boot.test.context.SpringBootTest;
 
 ## 字段模板
 #macro(getPageCondition $VO)
@@ -64,8 +64,8 @@ import static org.mockito.Mockito.*;
 *
 * @author ${table.author}
 */
-@Import(${table.className}ServiceImpl.class)
-public class ${table.className}ServiceImplTest extends BaseDbUnitTest {
+@SpringBootTest
+public class ${table.className}UnitTest{
 
     @Resource
     private ${table.className}ServiceImpl ${classNameVar}Service;
@@ -142,7 +142,7 @@ public class ${table.className}ServiceImplTest extends BaseDbUnitTest {
        #getPageCondition("PageReqVO")
 
        // 调用
-       PageResult<${table.className}DO> pageResult = ${classNameVar}Service.get${simpleClassName}Page(reqVO);
+       IPage<${table.className}DO> pageResult = ${classNameVar}Service.get${simpleClassName}Page(reqVO);
        // 断言
        assertEquals(1, pageResult.getTotal());
        assertEquals(1, pageResult.getList().size());

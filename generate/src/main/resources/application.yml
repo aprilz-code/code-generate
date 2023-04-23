@@ -44,5 +44,5 @@ mybatis-plus:
 
 
 codegen:
-  base-package: com.hujiang.train
+  base-package: com.hujiang
   db-schemas: hujiang

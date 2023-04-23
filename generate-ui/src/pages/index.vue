@@ -255,7 +255,9 @@ export default {
                 || path === 'service'
                 || path === 'vo' // 下面三个，主要是兜底。可能考虑到有人改了包结构
                 || path === 'mysql'
-                || path === 'dataobject') {
+                || path === 'dataobject'
+                  || path === 'model'
+                  || path === 'mapper') {
                 break;
               }
               tmp = tmp ? tmp + '.' + path : path;

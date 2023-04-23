@@ -1,4 +1,4 @@
-package ${basePackage}.dal.dataobject.${table.businessName};
+package ${basePackage}.${table.moduleName}.model;
 
 import lombok.*;
 import java.util.*;
@@ -17,7 +17,7 @@ import java.time.LocalTime;
 #end
 #end
 import com.baomidou.mybatisplus.annotation.*;
-import ${BaseDOClassName};
+import ${BaseEntityClassName};
 
 /**
  * ${table.classComment} DO
@@ -32,10 +32,10 @@ import ${BaseDOClassName};
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ${table.className}DO extends BaseDO {
+public class ${table.className}DO extends BaseEntity {
 
 #foreach ($column in $columns)
-#if (!${baseDOFields.contains(${column.javaField})})##排除 BaseDO 的字段
+#if (!${baseDOFields.contains(${column.javaField})})##排除 BaseEntity 的字段
     /**
      * ${column.columnComment}
     #if ("$!column.dictType" != "")##处理枚举值

@@ -1,4 +1,4 @@
-package ${basePackage}.controller.${table.businessName}.vo;
+package ${basePackage}.${table.moduleName}.controller.${table.businessName}.vo;
 
 import lombok.*;
 import java.util.*;

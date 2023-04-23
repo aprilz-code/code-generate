@@ -1,7 +1,7 @@
 package com.aprilz.generate.entity;
 
 
-import com.aprilz.generate.common.BaseDO;
+import com.aprilz.generate.common.BaseEntity;
 import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -19,7 +19,7 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-public class CodegenColumnDO extends BaseDO {
+public class CodegenColumnDO extends BaseEntity {
 
     /**
      * ID 编号

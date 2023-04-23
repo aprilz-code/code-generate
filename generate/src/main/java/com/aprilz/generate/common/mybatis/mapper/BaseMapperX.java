@@ -1,6 +1,7 @@
 package com.aprilz.generate.common.mybatis.mapper;
 
 
+import com.aprilz.generate.common.BaseEntity;
 import com.aprilz.generate.common.api.PageParam;
 import com.aprilz.generate.common.api.PageResult;
 import com.aprilz.generate.utils.MyBatisUtils;
@@ -18,7 +19,7 @@ import java.util.List;
 /**
  * 在 MyBatis Plus 的 BaseMapper 的基础上拓展，提供更多的能力
  */
-public interface BaseMapperX<T> extends BaseMapper<T> {
+public interface BaseMapperX<T extends BaseEntity> extends BaseMapper<T> {
 
     default PageResult<T> selectPage(PageParam pageParam, @Param("ew") Wrapper<T> queryWrapper) {
         // MyBatis Plus 查询
@@ -96,4 +97,12 @@ public interface BaseMapperX<T> extends BaseMapper<T> {
         update(update, new QueryWrapper<>());
     }
 
+
+    /**
+     * 批量插入
+     *
+     * @param entityList 对象集合
+     * @return 影响行数
+     */
+    int insertBatchSomeColumn(Collection<T> entityList);
 }
