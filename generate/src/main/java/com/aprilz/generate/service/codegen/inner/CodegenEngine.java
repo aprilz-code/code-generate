@@ -60,7 +60,7 @@ public class CodegenEngine {
             .put(javaTemplatePath("convert/convert"),
                     javaModuleImplMainFilePath("convert/${table.className}Convert"))
             .put(javaTemplatePath("dal/do"),
-                    javaModuleImplMainFilePath("model/${table.className}DO"))
+                    javaModuleApiMainFilePath("beans/model/${table.className}DO"))
             .put(javaTemplatePath("dal/mapper"),
                     javaModuleImplMainFilePath("mapper/${table.className}Mapper"))
             .put(javaTemplatePath("dal/mapper.xml"), mapperXmlFilePath())
@@ -69,8 +69,8 @@ public class CodegenEngine {
             .put(javaTemplatePath("service/service"),
                     javaModuleImplMainFilePath("service/${table.className}Service"))
             // Java module-biz Test
-            .put(javaTemplatePath("test/serviceTest"),
-                    javaModuleImplTestFilePath("service/${table.businessName}/${table.className}UnitTest"))
+//            .put(javaTemplatePath("test/serviceTest"),
+//                    javaModuleImplTestFilePath("service/${table.businessName}/${table.className}UnitTest"))
             // Java module-api Main
 //            .put(javaTemplatePath("enums/errorcode"), javaModuleApiMainFilePath("enums/ErrorCodeConstants_手动操作"))
 //            // Vue2
@@ -119,22 +119,22 @@ public class CodegenEngine {
         globalBindingMap.put("CommonResultClassName", "com.hujiang.common.core.model.result.Result");
         globalBindingMap.put("PageResultClassName", "com.baomidou.mybatisplus.core.metadata.IPage");
         // VO 类，独有字段
-        globalBindingMap.put("PageParamClassName", PageParam.class.getName());
+        globalBindingMap.put("PageParamClassName", "com.hujiang.common.core.model.req.PageParam");
         //字典
        // globalBindingMap.put("DictFormatClassName", DictFormat.class.getName());
         // DO 类，独有字段
-        globalBindingMap.put("BaseEntityClassName", BaseEntity.class.getName());
+        globalBindingMap.put("BaseEntityClassName", "com.hujiang.common.core.model.base.BaseEntity");
         globalBindingMap.put("baseDOFields", CodegenBuilder.BASE_DO_FIELDS);
-        globalBindingMap.put("QueryWrapperClassName", LambdaQueryWrapperX.class.getName());
-        globalBindingMap.put("BaseMapperClassName", BaseMapperX.class.getName());
+        globalBindingMap.put("QueryWrapperClassName", "com.hujiang.common.mybatis.mapper.query.LambdaQueryWrapperX");
+        globalBindingMap.put("BaseMapperClassName", "com.hujiang.common.mybatis.mapper.IBaseMapper;");
         // Util 工具类
-        globalBindingMap.put("ServiceExceptionUtilClassName", ServiceExceptionUtil.class.getName());
-        globalBindingMap.put("DateUtilsClassName", DateUtils.class.getName());
-        globalBindingMap.put("ExcelUtilsClassName", ExcelUtils.class.getName());
-        globalBindingMap.put("ObjectUtilsClassName", ObjectUtils.class.getName());
+      //  globalBindingMap.put("ServiceExceptionUtilClassName", ServiceExceptionUtil.class.getName());
+        globalBindingMap.put("DateUtilsClassName", "com.hujiang.common.core.util.DateUtils");
+ //       globalBindingMap.put("ExcelUtilsClassName", ExcelUtils.class.getName());
+        globalBindingMap.put("ObjectUtilsClassName", "com.hujiang.common.core.util.ObjectUtils");
 //        globalBindingMap.put("DictConvertClassName", DictConvert.class.getName());
-//        globalBindingMap.put("OperateLogClassName", OperateLog.class.getName());
-//        globalBindingMap.put("OperateTypeEnumClassName", OperateTypeEnum.class.getName());
+        globalBindingMap.put("OperateLogClassName", "com.hujiang.common.log.annotations.SystemLog");
+        globalBindingMap.put("OperateTypeEnumClassName", "com.hujiang.common.log.enums.OperateTypeEnum");
     }
 
     public Map<String, String> execute(CodegenTableDO table, List<CodegenColumnDO> columns) {
@@ -213,7 +213,7 @@ public class CodegenEngine {
     private static String javaModuleFilePath(String path, String module, String src) {
         return "${table.moduleName}-service/" + // 顶级模块
                 "${table.moduleName}-service-" + module + "/" + // 子模块
-                "src/" + src + "/java/${basePackage}/" + path + ".java";
+                "src/" + src + "/java/${basePackage}/${table.moduleName}/" + path + ".java";
     }
 
     private static String mapperXmlFilePath() {

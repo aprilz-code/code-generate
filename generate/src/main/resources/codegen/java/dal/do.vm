@@ -1,4 +1,4 @@
-package ${basePackage}.${table.moduleName}.model;
+package ${basePackage}.${table.moduleName}.beans.model;
 
 import lombok.*;
 import java.util.*;

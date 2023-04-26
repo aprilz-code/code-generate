@@ -1,10 +1,10 @@
-package ${basePackage}.service;
+package ${basePackage}.${table.moduleName}.service;
 
 import java.util.*;
 import javax.validation.*;
-import ${basePackage}.controller.${table.businessName}.vo.*;
-import ${basePackage}.dal.dataobject.${table.businessName}.${table.className}DO;
-import com.baomidou.mybatisplus.extension.service.IService;
+import ${basePackage}.${table.moduleName}.controller.${table.businessName}.vo.*;
+import ${basePackage}.${table.moduleName}.beans.model.${table.className}DO;
+import com.hujiang.common.mybatis.service.IBaseService;
 import ${PageResultClassName};
 
 /**
@@ -12,7 +12,7 @@ import ${PageResultClassName};
  *
  * @author ${table.author}
  */
-public interface ${table.className}Service  extends IService<${table.className}DO>{
+public interface ${table.className}Service  extends IBaseService<${table.className}DO>{
 
     /**
      * 创建${table.classComment}

@@ -6,8 +6,8 @@ import ${PageResultClassName};
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-import ${basePackage}.controller.${table.businessName}.vo.*;
-import ${basePackage}.model.${table.className}DO;
+import ${basePackage}.${table.moduleName}.controller.${table.businessName}.vo.*;
+import ${basePackage}.${table.moduleName}.beans.model.${table.className}DO;
 
 /**
  * ${table.classComment} Convert
@@ -27,7 +27,9 @@ public interface ${table.className}Convert {
 
     List<${sceneEnum.prefixClass}${table.className}RespVO> convertList(List<${table.className}DO> list);
 
-    PageResult<${sceneEnum.prefixClass}${table.className}RespVO> convertPage(PageResult<${table.className}DO> page);
+    default IPage<${sceneEnum.prefixClass}${table.className}RespVO> convertPage(IPage<${table.className}DO> page){
+        return page.convert(this::convert);
+    };
 
     List<${sceneEnum.prefixClass}${table.className}ExcelVO> convertList02(List<${table.className}DO> list);
 
