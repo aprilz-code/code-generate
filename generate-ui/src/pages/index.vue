@@ -38,16 +38,16 @@
 
         <!-- 列表 -->
         <el-table v-loading="loading" :data="tableList">
-          <el-table-column label="数据源" align="center" :formatter="dataSourceConfigNameFormat"/>
-          <el-table-column label="表名称" align="center" prop="tableName" width="200"/>
-          <el-table-column label="表描述" align="center" prop="tableComment" :show-overflow-tooltip="true" width="120"/>
-          <el-table-column label="实体" align="center" prop="className" width="200"/>
-          <el-table-column label="创建时间" align="center" prop="createTime" width="180">
-            <template v-slot="scope">
-              <span>{{ parseTime(scope.row.createTime) }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="更新时间" align="center" prop="createTime" width="180">
+<!--          <el-table-column label="数据源" align="center" :formatter="dataSourceConfigNameFormat"/>-->
+          <el-table-column label="表名称" align="center" prop="tableName" width="auto" min-width="20%"/>
+          <el-table-column label="表描述" align="center" prop="tableComment" :show-overflow-tooltip="true" width="auto" min-width="20%"/>
+          <el-table-column label="实体" align="center" prop="className" width="auto" min-width="20%"/>
+<!--          <el-table-column label="创建时间" align="center" prop="createTime" width="180">-->
+<!--            <template v-slot="scope">-->
+<!--              <span>{{ parseTime(scope.row.createTime) }}</span>-->
+<!--            </template>-->
+<!--          </el-table-column>-->
+          <el-table-column label="更新时间" align="center" prop="createTime" width="auto" min-width="20%">
             <template v-slot="scope">
               <span>{{ parseTime(scope.row.updateTime) }}</span>
             </template>
