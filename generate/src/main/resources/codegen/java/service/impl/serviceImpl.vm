@@ -9,7 +9,7 @@ import org.springframework.validation.annotation.Validated;
 
 import java.util.*;
 import ${basePackage}.${table.moduleName}.controller.${table.businessName}.vo.*;
-import ${basePackage}.${table.moduleName}.beans.model.${table.className}DO;
+import ${basePackage}.${table.moduleName}.model.db.${table.className}DO;
 import ${PageResultClassName};
 
 import ${basePackage}.${table.moduleName}.convert.${table.className}Convert;

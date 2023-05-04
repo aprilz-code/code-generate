@@ -5,7 +5,7 @@ import java.util.*;
 import ${PageResultClassName};
 import ${QueryWrapperClassName};
 import ${BaseMapperClassName};
-import ${basePackage}.${table.moduleName}.beans.model.${table.className}DO;
+import ${basePackage}.${table.moduleName}.model.db.${table.className}DO;
 import org.apache.ibatis.annotations.Mapper;
 import ${basePackage}.${table.moduleName}.controller.${table.businessName}.vo.*;
 

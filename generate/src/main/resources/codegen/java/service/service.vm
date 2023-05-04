@@ -3,7 +3,7 @@ package ${basePackage}.${table.moduleName}.service;
 import java.util.*;
 import javax.validation.*;
 import ${basePackage}.${table.moduleName}.controller.${table.businessName}.vo.*;
-import ${basePackage}.${table.moduleName}.beans.model.${table.className}DO;
+import ${basePackage}.${table.moduleName}.model.db.${table.className}DO;
 import com.hujiang.common.mybatis.service.IBaseService;
 import ${PageResultClassName};
 

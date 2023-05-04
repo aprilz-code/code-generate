@@ -16,7 +16,7 @@ public class GlobalCorsConfig {
         //放行哪些原始域
         config.addAllowedOrigin("*");
         //是否发送Cookie信息
-        config.setAllowCredentials(true);
+        //config.setAllowCredentials(true);
         //放行哪些原始域(请求方式)
         config.addAllowedMethod("*");
         //放行哪些原始域(头部信息)

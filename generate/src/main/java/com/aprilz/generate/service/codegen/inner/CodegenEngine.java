@@ -60,7 +60,7 @@ public class CodegenEngine {
             .put(javaTemplatePath("convert/convert"),
                     javaModuleImplMainFilePath("convert/${table.className}Convert"))
             .put(javaTemplatePath("dal/do"),
-                    javaModuleApiMainFilePath("beans/model/${table.className}DO"))
+                    javaModuleImplMainFilePath("model/db/${table.className}DO"))
             .put(javaTemplatePath("dal/mapper"),
                     javaModuleImplMainFilePath("mapper/${table.className}Mapper"))
             .put(javaTemplatePath("dal/mapper.xml"), mapperXmlFilePath())
