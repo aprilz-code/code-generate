@@ -20,6 +20,12 @@ import java.time.LocalDateTime;
 public abstract class BaseEntity implements Serializable {
 
     /**
+     * 实体编号（唯一标识）
+     */
+    @TableId(value = "id")
+    private Long id;
+
+    /**
      * 创建时间
      */
     @TableField(fill = FieldFill.INSERT)
