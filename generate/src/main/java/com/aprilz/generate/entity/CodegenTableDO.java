@@ -20,10 +20,6 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 public class CodegenTableDO extends BaseEntity {
 
-    /**
-     * ID 编号
-     */
-    private Long id;
 
     /**
      * 数据源编号

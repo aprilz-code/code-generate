@@ -21,11 +21,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 public class CodegenColumnDO extends BaseEntity {
 
-    /**
-     * ID 编号
-     */
-    @TableId
-    private Long id;
+
     /**
      * 表编号
      *
