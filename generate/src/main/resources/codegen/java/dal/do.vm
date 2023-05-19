@@ -1,7 +1,7 @@
 package ${basePackage}.${table.moduleName}.beans.model;
 
 import lombok.*;
-import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 import java.util.*;
 #foreach ($column in $columns)
 #if (${column.javaType} == "BigDecimal")
@@ -30,9 +30,8 @@ import ${BaseEntityClassName};
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-@Accessors(chain = true)
+@SuperBuilder(toBuilder = true)
 @NoArgsConstructor
-@AllArgsConstructor
 public class ${table.className}DO extends BaseEntity {
 
 #foreach ($column in $columns)

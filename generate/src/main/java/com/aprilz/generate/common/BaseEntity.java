@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.apache.ibatis.type.JdbcType;
 
 import java.io.Serializable;
@@ -18,6 +20,8 @@ import java.time.LocalDateTime;
  * @date 2023−03−24 14:34
  */
 @Data
+@SuperBuilder(toBuilder = true)
+@NoArgsConstructor
 public abstract class BaseEntity implements Serializable {
 
     /**
