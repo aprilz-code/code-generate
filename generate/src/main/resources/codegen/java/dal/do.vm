@@ -1,6 +1,7 @@
 package ${basePackage}.${table.moduleName}.beans.model;
 
 import lombok.*;
+import lombok.experimental.Accessors;
 import java.util.*;
 #foreach ($column in $columns)
 #if (${column.javaType} == "BigDecimal")
