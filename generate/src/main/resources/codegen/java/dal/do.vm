@@ -1,4 +1,4 @@
-package ${basePackage}.${table.moduleName}.beans.model;
+package ${basePackage}.${table.moduleName}.model.db;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
