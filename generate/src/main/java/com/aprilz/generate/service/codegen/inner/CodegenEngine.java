@@ -155,7 +155,7 @@ public class CodegenEngine {
         String simpleClassNameStrikeCase = toSymbolCase(simpleClassName, '-');
         bindingMap.put("simpleClassName_strikeCase", simpleClassNameStrikeCase);
         // permission 前缀
-        bindingMap.put("permissionPrefix", table.getModuleName() + ":" + simpleClassNameStrikeCase);
+        bindingMap.put("permissionPrefix", table.getModuleName() + ":" + lowerFirst(simpleClassName));
 
         // 执行生成
         final Map<String, String> result = Maps.newLinkedHashMapWithExpectedSize(TEMPLATES.size()); // 有序

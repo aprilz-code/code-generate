@@ -1,10 +1,11 @@
 package ${basePackage}.${table.moduleName}.controller.${table.businessName};
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 import com.hujiang.excel.core.annotations.ResponseExcel;
-###if ($sceneEnum.scene == 1)import org.springframework.security.access.prepost.PreAuthorize;#end
+###if ($sceneEnum.scene == 1)import org.springframework.security.access.prepost.SaCheckPermission;#end
 
 import io.swagger.annotations.*;
 
@@ -38,7 +39,8 @@ public class ${sceneEnum.prefixClass}${table.className}Controller {
     @PostMapping("/create")
     @ApiOperation("创建${table.classComment}")
     @SystemLog(module = "${table.classComment}", name = "${table.classComment}-新增", type = OperateTypeEnum.CREATE)
-###if ($sceneEnum.scene == 1)    @PreAuthorize("@ss.hasPermission('${permissionPrefix}:create')")#end
+    #if ($sceneEnum.scene == 1)    @SaCheckPermission("${permissionPrefix}:add")#end
+
     public Result<${primaryColumn.javaType}> create${simpleClassName}(@Valid @RequestBody ${sceneEnum.prefixClass}${table.className}CreateReqVO createReqVO) {
         return success(${classNameVar}Service.create${simpleClassName}(createReqVO));
     }
@@ -46,7 +48,8 @@ public class ${sceneEnum.prefixClass}${table.className}Controller {
     @PostMapping("/update")
     @ApiOperation("更新${table.classComment}")
     @SystemLog(module = "${table.classComment}", name = "${table.classComment}-修改", type = OperateTypeEnum.UPDATE)
-###if ($sceneEnum.scene == 1)    @PreAuthorize("@ss.hasPermission('${permissionPrefix}:update')")#end
+     #if ($sceneEnum.scene == 1)    @SaCheckPermission("${permissionPrefix}:update")#end
+
     public Result<Boolean> update${simpleClassName}(@Valid @RequestBody ${sceneEnum.prefixClass}${table.className}UpdateReqVO updateReqVO) {
         ${classNameVar}Service.update${simpleClassName}(updateReqVO);
         return success(true);
@@ -56,7 +59,8 @@ public class ${sceneEnum.prefixClass}${table.className}Controller {
     @ApiOperation("删除${table.classComment}")
     @SystemLog(module = "${table.classComment}", name = "${table.classComment}-删除", type = OperateTypeEnum.DELETE)
     @ApiImplicitParam(name = "id", value = "编号", required = true, dataTypeClass = ${primaryColumn.javaType}.class)
-###if ($sceneEnum.scene == 1)    @PreAuthorize("@ss.hasPermission('${permissionPrefix}:delete')")#end
+#if ($sceneEnum.scene == 1)    @SaCheckPermission("${permissionPrefix}:del")#end
+
     public Result<Boolean> delete${simpleClassName}(@RequestParam("id") ${primaryColumn.javaType} id) {
         ${classNameVar}Service.delete${simpleClassName}(id);
         return success(true);
@@ -66,7 +70,8 @@ public class ${sceneEnum.prefixClass}${table.className}Controller {
     @ApiOperation("获得${table.classComment}")
     @SystemLog(module = "${table.classComment}", name = "${table.classComment}-查询", type = OperateTypeEnum.SELECT)
     @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = ${primaryColumn.javaType}.class)
-###if ($sceneEnum.scene == 1)    @PreAuthorize("@ss.hasPermission('${permissionPrefix}:query')")#end
+    #if ($sceneEnum.scene == 1)    @SaCheckPermission("${permissionPrefix}:detail")#end
+
     public Result<${sceneEnum.prefixClass}${table.className}RespVO> get${simpleClassName}(@RequestParam("id") ${primaryColumn.javaType} id) {
         ${table.className}DO ${classNameVar} = ${classNameVar}Service.get${simpleClassName}(id);
         return success(${table.className}Convert.INSTANCE.convert(${classNameVar}));
@@ -76,7 +81,7 @@ public class ${sceneEnum.prefixClass}${table.className}Controller {
     @PostMapping("/list")
     @ApiOperation("获得${table.classComment}列表")
     @SystemLog(module = "${table.classComment}", name = "${table.classComment}-列表查询", type = OperateTypeEnum.SELECT)
-    ###if ($sceneEnum.scene == 1)    @PreAuthorize("@ss.hasPermission('${permissionPrefix}:query')")#end
+###if ($sceneEnum.scene == 1)    @SaCheckPermission("${permissionPrefix}:query")#end
     public Result<List<${sceneEnum.prefixClass}${table.className}RespVO>> list(@Valid  @RequestBody  ${sceneEnum.prefixClass}${table.className}ExportReqVO exportReqVO) {
             List<${table.className}DO> list = ${classNameVar}Service.get${simpleClassName}List(exportReqVO);
             return success(${table.className}Convert.INSTANCE.convertList(list));
@@ -85,21 +90,21 @@ public class ${sceneEnum.prefixClass}${table.className}Controller {
     @PostMapping("/page")
     @ApiOperation("获得${table.classComment}分页")
     @SystemLog(module = "${table.classComment}", name = "${table.classComment}-分页查询", type = OperateTypeEnum.SELECT)
-###if ($sceneEnum.scene == 1)    @PreAuthorize("@ss.hasPermission('${permissionPrefix}:query')")#end
+###if ($sceneEnum.scene == 1)    @SaCheckPermission("${permissionPrefix}:query")#end
     public Result<IPage<${sceneEnum.prefixClass}${table.className}RespVO>> get${simpleClassName}Page(@Valid  @RequestBody  ${sceneEnum.prefixClass}${table.className}PageReqVO pageVO) {
         IPage<${table.className}DO> pageResult = ${classNameVar}Service.get${simpleClassName}Page(pageVO);
         return success(${table.className}Convert.INSTANCE.convertPage(pageResult));
     }
 
-    @PostMapping("/export-excel")
-    @ApiOperation("导出${table.classComment} Excel")
-    @SystemLog(module = "${table.classComment}", name = "${table.classComment}-导出", type = OperateTypeEnum.EXPORT)
-###if ($sceneEnum.scene == 1)    @PreAuthorize("@ss.hasPermission('${permissionPrefix}:export')")#end
-    @ResponseExcel(name = "${table.classComment}")
-    public List<${sceneEnum.prefixClass}${table.className}ExcelVO> export${simpleClassName}Excel(@Valid  @RequestBody  ${sceneEnum.prefixClass}${table.className}ExportReqVO exportReqVO)  {
-        List<${table.className}DO> list = ${classNameVar}Service.get${simpleClassName}List(exportReqVO);
-        List<${sceneEnum.prefixClass}${table.className}ExcelVO> datas = ${table.className}Convert.INSTANCE.convertList02(list);
-        return datas;
-    }
+###@PostMapping("/export-excel")
+###@ApiOperation("导出${table.classComment} Excel")
+###@SystemLog(module = "${table.classComment}", name = "${table.classComment}-导出", type = OperateTypeEnum.EXPORT)
+###if ($sceneEnum.scene == 1)    @SaCheckPermission("${permissionPrefix}:export")#end
+###@ResponseExcel(name = "${table.classComment}")
+###public List<${sceneEnum.prefixClass}${table.className}ExcelVO> export${simpleClassName}Excel(@Valid  @RequestBody  ${sceneEnum.prefixClass}${table.className}ExportReqVO exportReqVO)  {
+###        List<${table.className}DO> list = ${classNameVar}Service.get${simpleClassName}List(exportReqVO);
+###        List<${sceneEnum.prefixClass}${table.className}ExcelVO> datas = ${table.className}Convert.INSTANCE.convertList02(list);
+###        return datas;
+###    }
 
 }
