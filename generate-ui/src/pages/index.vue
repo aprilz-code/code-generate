@@ -167,7 +167,7 @@ export default {
       this.loading = true;
       getCodegenTablePage(this.queryParams).then(response => {
             this.tableList = response.data.records;
-            this.total = response.data.total;
+            this.total = Number(response.data.total || 0);
             this.loading = false;
           }
       );
