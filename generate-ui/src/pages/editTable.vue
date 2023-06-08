@@ -114,9 +114,9 @@
           </el-table-column>
         </el-table>
       </el-tab-pane>
-<!--      <el-tab-pane label="生成信息" name="genInfo">-->
-<!--        <gen-info-form ref="genInfo" :info="table" :tables="tables" :menus="menus"/>-->
-<!--      </el-tab-pane>-->
+      <el-tab-pane label="生成信息" name="genInfo">
+        <gen-info-form ref="genInfo" :info="table" :tables="tables" :menus="menus"/>
+      </el-tab-pane>
     </el-tabs>
     <el-form label-width="100px">
       <el-form-item style="text-align: center;margin-left:-100px;margin-top:10px;">
@@ -160,7 +160,6 @@ export default {
   },
   created() {
     const tableId = this.$route.params && this.$route.params.tableId;
-    console.log(tableId)
     if (tableId) {
       // 获取表详细信息
       getCodegenDetail(tableId).then(res => {
@@ -178,14 +177,19 @@ export default {
     /** 提交按钮 */
     submitForm() {
       const basicForm = this.$refs.basicInfo.$refs.basicInfoForm;
-      //const genForm = this.$refs.genInfo.$refs.genInfoForm;
-      const genForm = {}
-      Promise.all([basicForm].map(this.getFormPromise)).then(res => {
+      const genForm = this.$refs.genInfo.$refs.genInfoForm;
+      Promise.all([basicForm, genForm].map(this.getFormPromise)).then(res => {
         const validateResult = res.every(item => !!item);
         if (validateResult) {
           const genTable = {};
           genTable.table = Object.assign({}, basicForm.model);
           genTable.columns = this.columns;
+          genTable.params = {
+              treeCode: genTable.treeCode,
+              treeName: genTable.treeName,
+              treeParentCode: genTable.treeParentCode,
+              parentMenuId: genTable.parentMenuId
+          };
           updateCodegen(genTable).then(res => {
             this.$modal.msgSuccess("修改成功！");
             this.close();

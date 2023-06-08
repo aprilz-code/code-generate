@@ -166,7 +166,7 @@ export default {
     getList() {
       this.loading = true;
       getCodegenTablePage(this.queryParams).then(response => {
-            this.tableList = response.data.list;
+            this.tableList = response.data.records;
             this.total = response.data.total;
             this.loading = false;
           }

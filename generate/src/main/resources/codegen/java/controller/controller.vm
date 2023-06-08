@@ -1,11 +1,11 @@
 package ${basePackage}.${table.moduleName}.controller.${table.businessName};
 
-import cn.dev33.satoken.annotation.SaCheckPermission;
+##import cn.dev33.satoken.annotation.SaCheckPermission;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 import com.hujiang.excel.core.annotations.ResponseExcel;
-###if ($sceneEnum.scene == 1)import org.springframework.security.access.prepost.SaCheckPermission;#end
+#if ($sceneEnum.scene == 1)import cn.dev33.satoken.annotation.SaCheckPermission;#end
 
 import io.swagger.annotations.*;
 
