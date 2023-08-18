@@ -56,6 +56,7 @@ CREATE TABLE `infra_codegen_table`  (
                                         `class_comment` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '类描述',
                                         `author` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '作者',
                                         `template_type` tinyint NOT NULL DEFAULT 1 COMMENT '模板类型',
+                                        `need_excel` tinyint NOT NULL DEFAULT 1 COMMENT '是否需要Excel',
                                         `parent_menu_id` bigint NULL DEFAULT NULL COMMENT '父菜单编号',
                                         `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
                                         `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

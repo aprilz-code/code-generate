@@ -47,9 +47,14 @@ public class CodegenTableBaseVO {
     @NotNull(message = "作者不能为空")
     private String author;
 
-    @ApiModelProperty(value = "模板类型", required = true, example = "1", notes = "参见 CodegenTemplateTypeEnum 枚举")
+    @ApiModelProperty(value = "模板类型", required = true, example = "1", notes = "1单表 2数表")
     @NotNull(message = "模板类型不能为空")
     private Integer templateType;
+
+
+    @ApiModelProperty(value = "是否需要Excel", required = true, example = "1", notes = "1不生成 2生成")
+    @NotNull(message = "是否需要Excel不能为空")
+    private Integer needExcel;
 
     @ApiModelProperty(value = "父菜单编号", example = "1024")
     private Long parentMenuId;

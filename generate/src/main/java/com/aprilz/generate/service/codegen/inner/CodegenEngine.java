@@ -137,6 +137,8 @@ public class CodegenEngine {
         bindingMap.put("primaryColumn", CollectionUtils.findFirst(columns, CodegenColumnDO::getPrimaryKey)); // 主键字段
         bindingMap.put("sceneEnum", CodegenSceneEnum.valueOf(table.getScene()));
 
+        bindingMap.put("needExcel",table.getNeedExcel());
+
         // className 相关
         // 去掉指定前缀，将 TestDictType 转换成 DictType. 因为在 create 等方法后，不需要带上 Test 前缀
         String simpleClassName = removePrefix(table.getClassName(), upperFirst(table.getModuleName()));

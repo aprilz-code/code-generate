@@ -4,7 +4,8 @@ package ${basePackage}.${table.moduleName}.controller.${table.businessName};
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
-import com.hujiang.excel.core.annotations.ResponseExcel;
+#if ($needExcel == 2)import com.hujiang.excel.core.annotations.ResponseExcel;
+#else #end
 #if ($sceneEnum.scene == 1)import cn.dev33.satoken.annotation.SaCheckPermission;#end
 
 import io.swagger.annotations.*;
@@ -96,15 +97,25 @@ public class ${sceneEnum.prefixClass}${table.className}Controller {
         return success(${table.className}Convert.INSTANCE.convertPage(pageResult));
     }
 
-###@PostMapping("/export-excel")
-###@ApiOperation("导出${table.classComment} Excel")
-###@SystemLog(module = "${table.classComment}", name = "${table.classComment}-导出", type = OperateTypeEnum.EXPORT)
-###if ($sceneEnum.scene == 1)    @SaCheckPermission("${permissionPrefix}:export")#end
-###@ResponseExcel(name = "${table.classComment}")
-###public List<${sceneEnum.prefixClass}${table.className}ExcelVO> export${simpleClassName}Excel(@Valid  @RequestBody  ${sceneEnum.prefixClass}${table.className}ExportReqVO exportReqVO)  {
-###        List<${table.className}DO> list = ${classNameVar}Service.get${simpleClassName}List(exportReqVO);
-###        List<${sceneEnum.prefixClass}${table.className}ExcelVO> datas = ${table.className}Convert.INSTANCE.convertList02(list);
-###        return datas;
-###    }
+    #if ($needExcel == 2)    @PostMapping("/export-excel")
+    #else #end
+    #if ($needExcel == 2)    @ApiOperation("导出${table.classComment} Excel")
+    #else #end
+    #if ($needExcel == 2)    @SystemLog(module = "${table.classComment}", name = "${table.classComment}-导出", type = OperateTypeEnum.EXPORT)
+    #else #end
+    #if ($sceneEnum.scene == 1 && $needExcel == 2)    @SaCheckPermission("${permissionPrefix}:export")
+        #else #end
+    #if ($needExcel == 2)    @ResponseExcel(name = "${table.classComment}")
+        #else #end
+    #if ($needExcel == 2)    public List<${sceneEnum.prefixClass}${table.className}ExcelVO> export${simpleClassName}Excel(@Valid  @RequestBody  ${sceneEnum.prefixClass}${table.className}ExportReqVO exportReqVO)  {
+        #else #end
+    #if ($needExcel == 2)        List<${table.className}DO> list = ${classNameVar}Service.get${simpleClassName}List(exportReqVO);
+        #else #end
+    #if ($needExcel == 2)        List<${sceneEnum.prefixClass}${table.className}ExcelVO> datas = ${table.className}Convert.INSTANCE.convertList02(list);
+        #else #end
+    #if ($needExcel == 2)        return datas;
+        #else #end
+    #if ($needExcel == 2)    }
+        #else #end
 
 }

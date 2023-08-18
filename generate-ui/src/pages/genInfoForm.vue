@@ -10,11 +10,21 @@
                     </el-select>
                 </el-form-item>
             </el-col>
+
+            <el-col :span="12">
+                <el-form-item prop="needExcel">
+                    <span slot="label">生成excel</span>
+                    <el-select v-model="info.needExcel" @change="tplSelectChange">
+                        <el-option v-for="dict in this.needExcels"
+                                   :key="parseInt(dict.value)" :label="dict.label" :value="parseInt(dict.value)"/>
+                    </el-select>
+                </el-form-item>
+            </el-col>
 <!--            <el-col :span="12">-->
 <!--                <el-form-item prop="scene">-->
 <!--                    <span slot="label">生成场景</span>-->
 <!--                    <el-select v-model="info.scene">-->
-<!--                        <el-option v-for="dict in this.templateTypes"-->
+<!--                        <el-option v-for="dict in this.sss"-->
 <!--                                   :key="parseInt(dict.value)" :label="dict.label" :value="parseInt(dict.value)"/>-->
 <!--                    </el-select>-->
 <!--                </el-form-item>-->
@@ -260,9 +270,22 @@ export default {
                     "label": "树表"
                 }
             ],
+            needExcels: [
+                {
+                    "value": 1,
+                    "label": "不生成"
+                },
+                {
+                    "value": 2,
+                    "label": "生成"
+                }
+            ],
             rules: {
                 templateType: [
                     { required: true, message: "请选择生成模板", trigger: "blur" }
+                ],
+                needExcel:  [
+                    { required: true, message: "请选择是否需要Excel", trigger: "blur" }
                 ],
                 scene: [
                     { required: true, message: "请选择生成场景", trigger: "blur" }

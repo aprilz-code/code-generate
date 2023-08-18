@@ -77,10 +77,16 @@ public class CodegenTableDO extends BaseEntity {
     // ========== 生成相关字段 ==========
 
     /**
-     * 模板类型
+     * 模板类型 1单表 2数表
      * <p>
      */
     private Integer templateType;
+
+    /**
+     * 是否生成excel 1不生成 2生成"
+     * <p>
+     */
+    private Integer needExcel;
 
     // ========== 菜单相关字段 ==========
 
