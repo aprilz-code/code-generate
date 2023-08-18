@@ -86,7 +86,7 @@ public class CodegenBuilder {
     static {
         Arrays.stream(ReflectUtil.getFields(BaseEntity.class)).forEach(field -> BASE_DO_FIELDS.add(field.getName()));
         //去掉租户字段
-       // BASE_DO_FIELDS.add(TENANT_ID_FIELD);
+        // BASE_DO_FIELDS.add(TENANT_ID_FIELD);
         // 处理 OPERATION 相关的字段
         CREATE_OPERATION_EXCLUDE_COLUMN.addAll(BASE_DO_FIELDS);
         UPDATE_OPERATION_EXCLUDE_COLUMN.addAll(BASE_DO_FIELDS);

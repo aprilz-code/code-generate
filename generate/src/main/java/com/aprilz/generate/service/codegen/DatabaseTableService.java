@@ -7,8 +7,6 @@ import java.util.List;
 
 /**
  * 数据库表 Service
- *
- 
  */
 public interface DatabaseTableService {
 

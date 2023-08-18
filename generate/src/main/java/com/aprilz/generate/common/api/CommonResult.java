@@ -49,7 +49,7 @@ public class CommonResult<T> implements Serializable {
      * @param errorCode 错误码
      */
     public static <T> CommonResult<T> error(ResultCode errorCode) {
-        return  error(errorCode.code(), errorCode.message());
+        return error(errorCode.code(), errorCode.message());
     }
 
     public static <T> CommonResult<T> error(Integer code, String message) {

@@ -1,7 +1,6 @@
 package com.aprilz.generate.service.codegen;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.StrUtil;
 import com.aprilz.generate.config.DataSourceProperties;
 import com.aprilz.generate.entity.DataSourceConfigDO;
@@ -20,8 +19,6 @@ import java.util.stream.Collectors;
 
 /**
  * 数据库表 Service 实现类
- *
-
  */
 @Service
 public class DatabaseTableServiceImpl implements DatabaseTableService {
@@ -55,7 +52,7 @@ public class DatabaseTableServiceImpl implements DatabaseTableService {
         config.setPassword(dataSourceProperties.getPassword());
         config.setUsername(dataSourceProperties.getUsername());
         config.setUrl(dataSourceProperties.getUrl());
-       // Assert.notNull(config, "数据源({}) 不存在！", dataSourceConfigId);
+        // Assert.notNull(config, "数据源({}) 不存在！", dataSourceConfigId);
 
         // 使用 MyBatis Plus Generator 解析表结构
         DataSourceConfig dataSourceConfig = new DataSourceConfig.Builder(config.getUrl(), config.getUsername(),

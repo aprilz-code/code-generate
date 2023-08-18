@@ -16,7 +16,7 @@ public class PageParam implements Serializable {
     private static final Integer PAGE_NO = 1;
     private static final Integer PAGE_SIZE = 10;
 
-    @ApiModelProperty(value = "页码，从 1 开始", required = true,example = "1")
+    @ApiModelProperty(value = "页码，从 1 开始", required = true, example = "1")
     @NotNull(message = "页码不能为空")
     @Min(value = 1, message = "页码最小值为 1")
     private Integer pageNo = PAGE_NO;

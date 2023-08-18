@@ -1,21 +1,19 @@
 package com.aprilz.generate.service.codegen;
 
 
-import com.aprilz.generate.common.api.PageResult;
 import com.aprilz.generate.controller.codegen.vo.CodegenCreateListReqVO;
 import com.aprilz.generate.controller.codegen.vo.CodegenUpdateReqVO;
 import com.aprilz.generate.controller.codegen.vo.table.CodegenTablePageReqVO;
 import com.aprilz.generate.controller.codegen.vo.table.DatabaseTableRespVO;
 import com.aprilz.generate.entity.CodegenColumnDO;
 import com.aprilz.generate.entity.CodegenTableDO;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import java.util.List;
 import java.util.Map;
 
 /**
  * 代码生成 Service 接口
- *
- 
  */
 public interface CodegenService {
 
@@ -55,7 +53,7 @@ public interface CodegenService {
      * @param pageReqVO 分页条件
      * @return 表定义分页
      */
-    PageResult<CodegenTableDO> getCodegenTablePage(CodegenTablePageReqVO pageReqVO);
+    IPage<CodegenTableDO> getCodegenTablePage(CodegenTablePageReqVO pageReqVO);
 
     /**
      * 获得表定义

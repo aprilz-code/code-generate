@@ -3,8 +3,6 @@ package com.aprilz.generate.controller.codegen;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.ZipUtil;
 import com.aprilz.generate.common.api.CommonResult;
-import com.aprilz.generate.common.api.PageResult;
-import com.aprilz.generate.config.DataSourceProperties;
 import com.aprilz.generate.controller.codegen.vo.CodegenCreateListReqVO;
 import com.aprilz.generate.controller.codegen.vo.CodegenDetailRespVO;
 import com.aprilz.generate.controller.codegen.vo.CodegenPreviewRespVO;
@@ -18,6 +16,7 @@ import com.aprilz.generate.entity.DataSourceConfigDO;
 import com.aprilz.generate.mapper.codegen.CodegenConvert;
 import com.aprilz.generate.service.codegen.CodegenService;
 import com.aprilz.generate.utils.ServletUtils;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -74,13 +73,13 @@ public class CodegenController {
     public CommonResult<List<DatabaseTableRespVO>> getDatabaseTableList(
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "comment", required = false) String comment) {
-        return success(codegenService.getDatabaseTableList(1L,name, comment));
+        return success(codegenService.getDatabaseTableList(1L, name, comment));
     }
 
     @GetMapping("/table/page")
     @ApiOperation("获得表定义分页")
-    public CommonResult<PageResult<CodegenTableRespVO>> getCodeGenTablePage(@Valid CodegenTablePageReqVO pageReqVO) {
-        PageResult<CodegenTableDO> pageResult = codegenService.getCodegenTablePage(pageReqVO);
+    public CommonResult<IPage<CodegenTableRespVO>> getCodeGenTablePage(@Valid CodegenTablePageReqVO pageReqVO) {
+        IPage<CodegenTableDO> pageResult = codegenService.getCodegenTablePage(pageReqVO);
         return success(CodegenConvert.INSTANCE.convertPage(pageResult));
     }
 

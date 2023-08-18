@@ -1,7 +1,6 @@
 package com.aprilz.generate.mapper.codegen;
 
 
-import com.aprilz.generate.common.api.PageResult;
 import com.aprilz.generate.controller.codegen.vo.CodegenDetailRespVO;
 import com.aprilz.generate.controller.codegen.vo.CodegenPreviewRespVO;
 import com.aprilz.generate.controller.codegen.vo.CodegenUpdateReqVO;
@@ -10,6 +9,7 @@ import com.aprilz.generate.controller.codegen.vo.table.CodegenTableRespVO;
 import com.aprilz.generate.controller.codegen.vo.table.DatabaseTableRespVO;
 import com.aprilz.generate.entity.CodegenColumnDO;
 import com.aprilz.generate.entity.CodegenTableDO;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import org.mapstruct.Mapper;
@@ -54,7 +54,11 @@ public interface CodegenConvert {
 
     CodegenTableRespVO convert(CodegenTableDO bean);
 
-    PageResult<CodegenTableRespVO> convertPage(PageResult<CodegenTableDO> page);
+    default IPage<CodegenTableRespVO> convertPage(IPage<CodegenTableDO> page) {
+        return page.convert(this::convert);
+    }
+
+    ;
 
     // ========== CodegenTableDO 相关 ==========
 

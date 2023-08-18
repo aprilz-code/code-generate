@@ -42,14 +42,14 @@ public abstract class BaseEntity implements Serializable {
     private LocalDateTime updateTime;
     /**
      * 创建者，目前使用 SysUser 的 id 编号
-     *
+     * <p>
      * 使用 String 类型的原因是，未来可能会存在非数值的情况，留好拓展性。
      */
     @TableField(fill = FieldFill.INSERT, jdbcType = JdbcType.VARCHAR)
     private String createBy;
     /**
      * 更新者，目前使用 SysUser 的 id 编号
-     *
+     * <p>
      * 使用 String 类型的原因是，未来可能会存在非数值的情况，留好拓展性。
      */
     @TableField(fill = FieldFill.INSERT_UPDATE, jdbcType = JdbcType.VARCHAR)
@@ -57,6 +57,6 @@ public abstract class BaseEntity implements Serializable {
     /**
      * 是否删除
      */
-    @TableLogic(value = "0",delval = "1")
+    @TableLogic(value = "0", delval = "1")
     private Boolean delFlag;
 }

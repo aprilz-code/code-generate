@@ -5,8 +5,6 @@ import lombok.Getter;
 
 /**
  * 代码生成模板类型
- *
- 
  */
 @AllArgsConstructor
 @Getter

@@ -5,19 +5,11 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.template.TemplateConfig;
 import cn.hutool.extra.template.TemplateEngine;
 import cn.hutool.extra.template.engine.velocity.VelocityEngine;
-
-import com.aprilz.generate.common.BaseEntity;
-import com.aprilz.generate.common.api.CommonResult;
-import com.aprilz.generate.common.api.PageParam;
-import com.aprilz.generate.common.api.PageResult;
-import com.aprilz.generate.common.mybatis.mapper.BaseMapperX;
-import com.aprilz.generate.common.mybatis.query.LambdaQueryWrapperX;
 import com.aprilz.generate.config.CodegenProperties;
 import com.aprilz.generate.entity.CodegenColumnDO;
 import com.aprilz.generate.entity.CodegenTableDO;
 import com.aprilz.generate.enums.codegen.CodegenSceneEnum;
-import com.aprilz.generate.service.codegen.inner.CodegenBuilder;
-import com.aprilz.generate.utils.*;
+import com.aprilz.generate.utils.CollectionUtils;
 import com.google.common.collect.Maps;
 import org.springframework.stereotype.Component;
 
@@ -34,7 +26,7 @@ import static cn.hutool.core.text.CharSequenceUtil.*;
 /**
  * 代码生成的引擎，用于具体生成代码
  * 目前基于 {@link org.apache.velocity.app.Velocity} 模板引擎实现
- *
+ * <p>
  * 考虑到 Java 模板引擎的框架非常多，Freemarker、Velocity、Thymeleaf 等等，所以我们采用 hutool 封装的 {@link cn.hutool.extra.template.Template} 抽象
  *
  * @author 芋道源码
@@ -121,16 +113,16 @@ public class CodegenEngine {
         // VO 类，独有字段
         globalBindingMap.put("PageParamClassName", "com.hujiang.common.core.model.req.PageParam");
         //字典
-       // globalBindingMap.put("DictFormatClassName", DictFormat.class.getName());
+        // globalBindingMap.put("DictFormatClassName", DictFormat.class.getName());
         // DO 类，独有字段
         globalBindingMap.put("BaseEntityClassName", "com.hujiang.common.core.model.base.BaseEntity");
         globalBindingMap.put("baseDOFields", CodegenBuilder.BASE_DO_FIELDS);
         globalBindingMap.put("QueryWrapperClassName", "com.hujiang.common.mybatis.mapper.query.LambdaQueryWrapperX");
         globalBindingMap.put("BaseMapperClassName", "com.hujiang.common.mybatis.mapper.IBaseMapper;");
         // Util 工具类
-      //  globalBindingMap.put("ServiceExceptionUtilClassName", ServiceExceptionUtil.class.getName());
+        //  globalBindingMap.put("ServiceExceptionUtilClassName", ServiceExceptionUtil.class.getName());
         globalBindingMap.put("DateUtilsClassName", "com.hujiang.common.core.util.DateUtils");
- //       globalBindingMap.put("ExcelUtilsClassName", ExcelUtils.class.getName());
+        //       globalBindingMap.put("ExcelUtilsClassName", ExcelUtils.class.getName());
         globalBindingMap.put("ObjectUtilsClassName", "com.hujiang.common.core.util.ObjectUtils");
 //        globalBindingMap.put("DictConvertClassName", DictConvert.class.getName());
         globalBindingMap.put("OperateLogClassName", "com.hujiang.common.log.annotations.SystemLog");
@@ -230,6 +222,7 @@ public class CodegenEngine {
         return "yudao-ui-${sceneEnum.basePackage}/" + // 顶级目录
                 "src/" + path;
     }
+
     private static String vue3TemplatePath(String path) {
         return "codegen/vue3/" + path + ".vm";
     }

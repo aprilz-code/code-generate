@@ -1,11 +1,11 @@
 package com.aprilz.generate.mapper;
 
 
-import com.aprilz.generate.common.api.PageResult;
 import com.aprilz.generate.common.mybatis.mapper.BaseMapperX;
 import com.aprilz.generate.common.mybatis.query.LambdaQueryWrapperX;
 import com.aprilz.generate.controller.codegen.vo.table.CodegenTablePageReqVO;
 import com.aprilz.generate.entity.CodegenTableDO;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public interface CodegenTableMapper extends BaseMapperX<CodegenTableDO> {
                 CodegenTableDO::getDataSourceConfigId, dataSourceConfigId);
     }
 
-    default PageResult<CodegenTableDO> selectPage(CodegenTablePageReqVO pageReqVO) {
+    default IPage<CodegenTableDO> selectPage(CodegenTablePageReqVO pageReqVO) {
         return selectPage(pageReqVO, new LambdaQueryWrapperX<CodegenTableDO>()
                 .likeIfPresent(CodegenTableDO::getTableName, pageReqVO.getTableName())
                 .likeIfPresent(CodegenTableDO::getTableComment, pageReqVO.getTableComment())

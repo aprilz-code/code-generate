@@ -10,8 +10,6 @@ import java.util.stream.Collectors;
 
 /**
  * 字符串工具类
- *
- 
  */
 public class StrUtils {
 
@@ -40,7 +38,7 @@ public class StrUtils {
         return false;
     }
 
-    public static List<Long> splitToLong(String value,  CharSequence separator) {
+    public static List<Long> splitToLong(String value, CharSequence separator) {
         long[] longs = StrUtil.splitToLong(value, separator);
         return Arrays.stream(longs).boxed().collect(Collectors.toList());
     }

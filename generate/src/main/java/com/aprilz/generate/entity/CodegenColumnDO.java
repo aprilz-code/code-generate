@@ -3,7 +3,6 @@ package com.aprilz.generate.entity;
 
 import com.aprilz.generate.common.BaseEntity;
 import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,8 +10,6 @@ import lombok.experimental.Accessors;
 
 /**
  * 代码生成 column 字段定义
- *
-
  */
 @TableName(value = "infra_codegen_column", autoResultMap = true)
 @KeySequence("infra_codegen_column_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
@@ -24,7 +21,7 @@ public class CodegenColumnDO extends BaseEntity {
 
     /**
      * 表编号
-     *
+     * <p>
      * 关联 {@link CodegenTableDO#getId()}
      */
     private Long tableId;
@@ -64,7 +61,7 @@ public class CodegenColumnDO extends BaseEntity {
 
     /**
      * Java 属性类型
-     *
+     * <p>
      * 例如说 String、Boolean 等等
      */
     private String javaType;
@@ -74,7 +71,7 @@ public class CodegenColumnDO extends BaseEntity {
     private String javaField;
     /**
      * 字典类型
-     *
+     * <p>
      * 关联 DictTypeDO 的 type 属性
      */
     private String dictType;
@@ -99,7 +96,6 @@ public class CodegenColumnDO extends BaseEntity {
     private Boolean listOperation;
     /**
      * List 查询操作的条件类型
-     *
      */
     private String listOperationCondition;
     /**
@@ -111,7 +107,6 @@ public class CodegenColumnDO extends BaseEntity {
 
     /**
      * 显示类型
-     *
      */
     private String htmlType;
 

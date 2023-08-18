@@ -13,8 +13,6 @@ import java.util.stream.Collectors;
 
 /**
  * Collection 工具类
- *
- 
  */
 public class CollectionUtils {
 

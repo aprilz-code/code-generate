@@ -16,8 +16,6 @@ import java.net.URLEncoder;
 
 /**
  * 客户端工具类
- *
- 
  */
 public class ServletUtils {
 
