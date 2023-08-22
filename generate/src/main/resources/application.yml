@@ -6,7 +6,7 @@ spring:
   application:
     name: code-generate
   datasource:
-    url: jdbc:mysql://192.168.1.25:3306/supplier?useUnicode=true&allowMultiQueries=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true
+    url: jdbc:mysql://192.168.1.25:3306/hujiang-cloud-dev?useUnicode=true&allowMultiQueries=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true
     username: zhgd_v2_dev
     password: zhgd_v2_dev
     # \u5168\u5C40\u65E5\u671F\u683C\u5F0F\u5316
