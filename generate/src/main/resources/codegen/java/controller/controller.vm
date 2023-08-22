@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 #if ($needExcel == 2)import com.hujiang.excel.core.annotations.ResponseExcel;
+import com.hujiang.excel.core.annotations.RequestExcel;
 #else #end
 #if ($sceneEnum.scene == 1)import cn.dev33.satoken.annotation.SaCheckPermission;#end
 
@@ -115,6 +116,21 @@ public class ${sceneEnum.prefixClass}${table.className}Controller {
         #else #end
     #if ($needExcel == 2)        return datas;
         #else #end
+    #if ($needExcel == 2)    }
+        #else #end
+
+
+
+    #if ($needExcel == 2)    @PostMapping("/import-excel")
+    #else #end
+    #if ($needExcel == 2)    @ApiOperation(value = "导入${table.classComment}  Excel", consumes = "multipart/form-data")
+    #else #end
+    #if ($needExcel == 2)    @SystemLog(module = "${table.classComment}", name = "${table.classComment}-导入", type = OperateTypeEnum.IMPORT)
+    #else #end
+    #if ($needExcel == 2)    public Result<String> import${simpleClassName}Excel(@RequestExcel List<${sceneEnum.prefixClass}${table.className}ExcelVO> dataList, BindingResult bindingResult) {
+    #else #end
+    #if ($needExcel == 2)        return success("success");
+    #else #end
     #if ($needExcel == 2)    }
         #else #end
 
