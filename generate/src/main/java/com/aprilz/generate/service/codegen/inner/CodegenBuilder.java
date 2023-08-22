@@ -94,6 +94,7 @@ public class CodegenBuilder {
         LIST_OPERATION_EXCLUDE_COLUMN.remove("createTime"); // 创建时间，还是可能需要传递的
         LIST_OPERATION_RESULT_EXCLUDE_COLUMN.addAll(BASE_DO_FIELDS);
         LIST_OPERATION_RESULT_EXCLUDE_COLUMN.remove("createTime"); // 创建时间，还是需要返回的
+        LIST_OPERATION_RESULT_EXCLUDE_COLUMN.remove("id"); //id修改时需要使用
     }
 
     public CodegenTableDO buildTable(TableInfo tableInfo) {
