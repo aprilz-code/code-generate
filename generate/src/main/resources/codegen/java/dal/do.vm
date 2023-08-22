@@ -46,7 +46,7 @@ public class ${table.className}DO extends BaseEntity {
     #if (${column.primaryKey})##处理主键
     @TableId#if (${column.javaType} == 'String')(type = IdType.INPUT)#end
     #else
-    @TableField(${column.columnName})
+    @TableField("${column.columnName}")
     #end
     private ${column.javaType} ${column.javaField};
 #end
