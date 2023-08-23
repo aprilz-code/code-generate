@@ -41,8 +41,8 @@ public class ${sceneEnum.prefixClass}${table.className}Controller {
     @PostMapping("/create")
     @ApiOperation("创建${table.classComment}")
     @SystemLog(module = "${table.classComment}", name = "${table.classComment}-新增", type = OperateTypeEnum.CREATE)
-    #if ($sceneEnum.scene == 1)    @SaCheckPermission("${permissionPrefix}:add")#end
-
+    #if ($sceneEnum.scene == 1)    @SaCheckPermission("${permissionPrefix}:add")
+    #else #end
     public Result<${primaryColumn.javaType}> create${simpleClassName}(@Valid @RequestBody ${sceneEnum.prefixClass}${table.className}CreateReqVO createReqVO) {
         return success(${classNameVar}Service.create${simpleClassName}(createReqVO));
     }
@@ -50,8 +50,8 @@ public class ${sceneEnum.prefixClass}${table.className}Controller {
     @PostMapping("/update")
     @ApiOperation("更新${table.classComment}")
     @SystemLog(module = "${table.classComment}", name = "${table.classComment}-修改", type = OperateTypeEnum.UPDATE)
-     #if ($sceneEnum.scene == 1)    @SaCheckPermission("${permissionPrefix}:update")#end
-
+     #if ($sceneEnum.scene == 1)    @SaCheckPermission("${permissionPrefix}:update")
+    #else #end
     public Result<Boolean> update${simpleClassName}(@Valid @RequestBody ${sceneEnum.prefixClass}${table.className}UpdateReqVO updateReqVO) {
         ${classNameVar}Service.update${simpleClassName}(updateReqVO);
         return success(true);
@@ -61,8 +61,8 @@ public class ${sceneEnum.prefixClass}${table.className}Controller {
     @ApiOperation("删除${table.classComment}")
     @SystemLog(module = "${table.classComment}", name = "${table.classComment}-删除", type = OperateTypeEnum.DELETE)
     @ApiImplicitParam(name = "id", value = "编号", required = true, dataTypeClass = ${primaryColumn.javaType}.class)
-#if ($sceneEnum.scene == 1)    @SaCheckPermission("${permissionPrefix}:del")#end
-
+#if ($sceneEnum.scene == 1)    @SaCheckPermission("${permissionPrefix}:del")
+    #else #end
     public Result<Boolean> delete${simpleClassName}(@RequestParam("id") ${primaryColumn.javaType} id) {
         ${classNameVar}Service.delete${simpleClassName}(id);
         return success(true);
@@ -72,8 +72,8 @@ public class ${sceneEnum.prefixClass}${table.className}Controller {
     @ApiOperation("获得${table.classComment}")
     @SystemLog(module = "${table.classComment}", name = "${table.classComment}-查询", type = OperateTypeEnum.SELECT)
     @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = ${primaryColumn.javaType}.class)
-    #if ($sceneEnum.scene == 1)    @SaCheckPermission("${permissionPrefix}:detail")#end
-
+    #if ($sceneEnum.scene == 1)    @SaCheckPermission("${permissionPrefix}:detail")
+    #else #end
     public Result<${sceneEnum.prefixClass}${table.className}RespVO> get${simpleClassName}(@RequestParam("id") ${primaryColumn.javaType} id) {
         ${table.className}DO ${classNameVar} = ${classNameVar}Service.get${simpleClassName}(id);
         return success(${table.className}Convert.INSTANCE.convert(${classNameVar}));
@@ -94,8 +94,8 @@ public class ${sceneEnum.prefixClass}${table.className}Controller {
     @SystemLog(module = "${table.classComment}", name = "${table.classComment}-分页查询", type = OperateTypeEnum.SELECT)
 ###if ($sceneEnum.scene == 1)    @SaCheckPermission("${permissionPrefix}:query")#end
     public Result<IPage<${sceneEnum.prefixClass}${table.className}RespVO>> get${simpleClassName}Page(@Valid  @RequestBody  ${sceneEnum.prefixClass}${table.className}PageReqVO pageVO) {
-        IPage<${table.className}DO> pageResult = ${classNameVar}Service.get${simpleClassName}Page(pageVO);
-        return success(${table.className}Convert.INSTANCE.convertPage(pageResult));
+        IPage<${sceneEnum.prefixClass}${table.className}RespVO> pageResult = ${classNameVar}Service.get${simpleClassName}Page(pageVO);
+        return success(pageResult);
     }
 
     #if ($needExcel == 2)    @PostMapping("/export-excel")
@@ -127,6 +127,8 @@ public class ${sceneEnum.prefixClass}${table.className}Controller {
     #else #end
     #if ($needExcel == 2)    @SystemLog(module = "${table.classComment}", name = "${table.classComment}-导入", type = OperateTypeEnum.IMPORT)
     #else #end
+    #if ($sceneEnum.scene == 1 && $needExcel == 2)    @SaCheckPermission("${permissionPrefix}:import")
+        #else #end
     #if ($needExcel == 2)    public Result<String> import${simpleClassName}Excel(@RequestExcel List<${sceneEnum.prefixClass}${table.className}ExcelVO> dataList, BindingResult bindingResult) {
     #else #end
     #if ($needExcel == 2)        return success("success");

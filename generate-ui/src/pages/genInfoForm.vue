@@ -13,22 +13,32 @@
 
             <el-col :span="12">
                 <el-form-item prop="needExcel">
-                    <span slot="label">生成excel</span>
+                    <span slot="label">
+                        生成excel
+                    <el-tooltip content="关乎controller是否生成导入导出Excel" placement="top">
+                      <i class="el-icon-question"></i>
+                    </el-tooltip>
+                    </span>
                     <el-select v-model="info.needExcel" @change="tplSelectChange">
                         <el-option v-for="dict in this.needExcels"
                                    :key="parseInt(dict.value)" :label="dict.label" :value="parseInt(dict.value)"/>
                     </el-select>
                 </el-form-item>
             </el-col>
-<!--            <el-col :span="12">-->
-<!--                <el-form-item prop="scene">-->
-<!--                    <span slot="label">生成场景</span>-->
-<!--                    <el-select v-model="info.scene">-->
-<!--                        <el-option v-for="dict in this.sss"-->
-<!--                                   :key="parseInt(dict.value)" :label="dict.label" :value="parseInt(dict.value)"/>-->
-<!--                    </el-select>-->
-<!--                </el-form-item>-->
-<!--            </el-col>-->
+            <el-col :span="12">
+                <el-form-item prop="scene">
+                    <span slot="label">
+                        需要权限
+                    <el-tooltip content="关乎controller是否生成@SaCheckPermission" placement="top">
+                      <i class="el-icon-question"></i>
+                    </el-tooltip>
+                    </span>
+                    <el-select v-model="info.scene">
+                        <el-option v-for="dict in this.scenes"
+                                   :key="parseInt(dict.value)" :label="dict.label" :value="parseInt(dict.value)"/>
+                    </el-select>
+                </el-form-item>
+            </el-col>
 
             <!--      <el-col :span="12">-->
             <!--        <el-form-item prop="packageName">-->
@@ -50,7 +60,7 @@
               <i class="el-icon-question"></i>
             </el-tooltip>
           </span>
-                    <el-input v-model="info.moduleName" />
+                    <el-input v-model="info.moduleName"/>
                 </el-form-item>
             </el-col>
 
@@ -62,7 +72,7 @@
               <i class="el-icon-question"></i>
             </el-tooltip>
           </span>
-                    <el-input v-model="info.businessName" />
+                    <el-input v-model="info.businessName"/>
                 </el-form-item>
             </el-col>
 
@@ -86,7 +96,7 @@
               <i class="el-icon-question"></i>
             </el-tooltip>
           </span>
-                    <el-input v-model="info.className" />
+                    <el-input v-model="info.className"/>
                 </el-form-item>
             </el-col>
 
@@ -98,22 +108,22 @@
               <i class="el-icon-question"></i>
             </el-tooltip>
           </span>
-                    <el-input v-model="info.classComment" />
+                    <el-input v-model="info.classComment"/>
                 </el-form-item>
             </el-col>
 
-<!--            <el-col :span="12">-->
-<!--                <el-form-item>-->
-<!--          <span slot="label">-->
-<!--            上级菜单-->
-<!--            <el-tooltip content="分配到指定菜单下，例如 系统管理" placement="top">-->
-<!--              <i class="el-icon-question"></i>-->
-<!--            </el-tooltip>-->
-<!--          </span>-->
-<!--                    <treeselect :append-to-body="true" v-model="info.parentMenuId" :options="menus"-->
-<!--                                :normalizer="normalizer" :show-count="true" placeholder="请选择系统菜单" />-->
-<!--                </el-form-item>-->
-<!--            </el-col>-->
+            <!--            <el-col :span="12">-->
+            <!--                <el-form-item>-->
+            <!--          <span slot="label">-->
+            <!--            上级菜单-->
+            <!--            <el-tooltip content="分配到指定菜单下，例如 系统管理" placement="top">-->
+            <!--              <i class="el-icon-question"></i>-->
+            <!--            </el-tooltip>-->
+            <!--          </span>-->
+            <!--                    <treeselect :append-to-body="true" v-model="info.parentMenuId" :options="menus"-->
+            <!--                                :normalizer="normalizer" :show-count="true" placeholder="请选择系统菜单" />-->
+            <!--                </el-form-item>-->
+            <!--            </el-col>-->
 
             <el-col :span="24" v-if="info.genType === '1'">
                 <el-form-item prop="genPath">
@@ -130,7 +140,8 @@
                                 <i class="el-icon-arrow-down el-icon--right"></i>
                             </el-button>
                             <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item @click.native="info.genPath = '/'">恢复默认的生成基础路径</el-dropdown-item>
+                                <el-dropdown-item @click.native="info.genPath = '/'">恢复默认的生成基础路径
+                                </el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
                     </el-input>
@@ -138,102 +149,102 @@
             </el-col>
         </el-row>
 
-<!--        <el-row v-show="info.tplCategory === 'tree'">-->
-<!--            <h4 class="form-header">其他信息</h4>-->
-<!--            <el-col :span="12">-->
-<!--                <el-form-item>-->
-<!--          <span slot="label">-->
-<!--            树编码字段-->
-<!--            <el-tooltip content="树显示的编码字段名， 如：dept_id" placement="top">-->
-<!--              <i class="el-icon-question"></i>-->
-<!--            </el-tooltip>-->
-<!--          </span>-->
-<!--                    <el-select v-model="info.treeCode" placeholder="请选择">-->
-<!--                        <el-option-->
-<!--                                v-for="(column, index) in info.columns"-->
-<!--                                :key="index"-->
-<!--                                :label="column.columnName + '：' + column.columnComment"-->
-<!--                                :value="column.columnName"-->
-<!--                        ></el-option>-->
-<!--                    </el-select>-->
-<!--                </el-form-item>-->
-<!--            </el-col>-->
-<!--            <el-col :span="12">-->
-<!--                <el-form-item>-->
-<!--          <span slot="label">-->
-<!--            树父编码字段-->
-<!--            <el-tooltip content="树显示的父编码字段名， 如：parent_Id" placement="top">-->
-<!--              <i class="el-icon-question"></i>-->
-<!--            </el-tooltip>-->
-<!--          </span>-->
-<!--                    <el-select v-model="info.treeParentCode" placeholder="请选择">-->
-<!--                        <el-option-->
-<!--                                v-for="(column, index) in info.columns"-->
-<!--                                :key="index"-->
-<!--                                :label="column.columnName + '：' + column.columnComment"-->
-<!--                                :value="column.columnName"-->
-<!--                        ></el-option>-->
-<!--                    </el-select>-->
-<!--                </el-form-item>-->
-<!--            </el-col>-->
-<!--            <el-col :span="12">-->
-<!--                <el-form-item>-->
-<!--          <span slot="label">-->
-<!--            树名称字段-->
-<!--            <el-tooltip content="树节点的显示名称字段名， 如：dept_name" placement="top">-->
-<!--              <i class="el-icon-question"></i>-->
-<!--            </el-tooltip>-->
-<!--          </span>-->
-<!--                    <el-select v-model="info.treeName" placeholder="请选择">-->
-<!--                        <el-option-->
-<!--                                v-for="(column, index) in info.columns"-->
-<!--                                :key="index"-->
-<!--                                :label="column.columnName + '：' + column.columnComment"-->
-<!--                                :value="column.columnName"-->
-<!--                        ></el-option>-->
-<!--                    </el-select>-->
-<!--                </el-form-item>-->
-<!--            </el-col>-->
-<!--        </el-row>-->
-<!--        <el-row v-show="info.tplCategory === 'sub'">-->
-<!--            <h4 class="form-header">关联信息</h4>-->
-<!--            <el-col :span="12">-->
-<!--                <el-form-item>-->
-<!--          <span slot="label">-->
-<!--            关联子表的表名-->
-<!--            <el-tooltip content="关联子表的表名， 如：sys_user" placement="top">-->
-<!--              <i class="el-icon-question"></i>-->
-<!--            </el-tooltip>-->
-<!--          </span>-->
-<!--                    <el-select v-model="info.subTableName" placeholder="请选择" @change="subSelectChange">-->
-<!--                        <el-option-->
-<!--                                v-for="(table, index) in tables"-->
-<!--                                :key="index"-->
-<!--                                :label="table.tableName + '：' + table.tableComment"-->
-<!--                                :value="table.tableName"-->
-<!--                        ></el-option>-->
-<!--                    </el-select>-->
-<!--                </el-form-item>-->
-<!--            </el-col>-->
-<!--            <el-col :span="12">-->
-<!--                <el-form-item>-->
-<!--          <span slot="label">-->
-<!--            子表关联的外键名-->
-<!--            <el-tooltip content="子表关联的外键名， 如：user_id" placement="top">-->
-<!--              <i class="el-icon-question"></i>-->
-<!--            </el-tooltip>-->
-<!--          </span>-->
-<!--                    <el-select v-model="info.subTableFkName" placeholder="请选择">-->
-<!--                        <el-option-->
-<!--                                v-for="(column, index) in subColumns"-->
-<!--                                :key="index"-->
-<!--                                :label="column.columnName + '：' + column.columnComment"-->
-<!--                                :value="column.columnName"-->
-<!--                        ></el-option>-->
-<!--                    </el-select>-->
-<!--                </el-form-item>-->
-<!--            </el-col>-->
-<!--        </el-row>-->
+        <!--        <el-row v-show="info.tplCategory === 'tree'">-->
+        <!--            <h4 class="form-header">其他信息</h4>-->
+        <!--            <el-col :span="12">-->
+        <!--                <el-form-item>-->
+        <!--          <span slot="label">-->
+        <!--            树编码字段-->
+        <!--            <el-tooltip content="树显示的编码字段名， 如：dept_id" placement="top">-->
+        <!--              <i class="el-icon-question"></i>-->
+        <!--            </el-tooltip>-->
+        <!--          </span>-->
+        <!--                    <el-select v-model="info.treeCode" placeholder="请选择">-->
+        <!--                        <el-option-->
+        <!--                                v-for="(column, index) in info.columns"-->
+        <!--                                :key="index"-->
+        <!--                                :label="column.columnName + '：' + column.columnComment"-->
+        <!--                                :value="column.columnName"-->
+        <!--                        ></el-option>-->
+        <!--                    </el-select>-->
+        <!--                </el-form-item>-->
+        <!--            </el-col>-->
+        <!--            <el-col :span="12">-->
+        <!--                <el-form-item>-->
+        <!--          <span slot="label">-->
+        <!--            树父编码字段-->
+        <!--            <el-tooltip content="树显示的父编码字段名， 如：parent_Id" placement="top">-->
+        <!--              <i class="el-icon-question"></i>-->
+        <!--            </el-tooltip>-->
+        <!--          </span>-->
+        <!--                    <el-select v-model="info.treeParentCode" placeholder="请选择">-->
+        <!--                        <el-option-->
+        <!--                                v-for="(column, index) in info.columns"-->
+        <!--                                :key="index"-->
+        <!--                                :label="column.columnName + '：' + column.columnComment"-->
+        <!--                                :value="column.columnName"-->
+        <!--                        ></el-option>-->
+        <!--                    </el-select>-->
+        <!--                </el-form-item>-->
+        <!--            </el-col>-->
+        <!--            <el-col :span="12">-->
+        <!--                <el-form-item>-->
+        <!--          <span slot="label">-->
+        <!--            树名称字段-->
+        <!--            <el-tooltip content="树节点的显示名称字段名， 如：dept_name" placement="top">-->
+        <!--              <i class="el-icon-question"></i>-->
+        <!--            </el-tooltip>-->
+        <!--          </span>-->
+        <!--                    <el-select v-model="info.treeName" placeholder="请选择">-->
+        <!--                        <el-option-->
+        <!--                                v-for="(column, index) in info.columns"-->
+        <!--                                :key="index"-->
+        <!--                                :label="column.columnName + '：' + column.columnComment"-->
+        <!--                                :value="column.columnName"-->
+        <!--                        ></el-option>-->
+        <!--                    </el-select>-->
+        <!--                </el-form-item>-->
+        <!--            </el-col>-->
+        <!--        </el-row>-->
+        <!--        <el-row v-show="info.tplCategory === 'sub'">-->
+        <!--            <h4 class="form-header">关联信息</h4>-->
+        <!--            <el-col :span="12">-->
+        <!--                <el-form-item>-->
+        <!--          <span slot="label">-->
+        <!--            关联子表的表名-->
+        <!--            <el-tooltip content="关联子表的表名， 如：sys_user" placement="top">-->
+        <!--              <i class="el-icon-question"></i>-->
+        <!--            </el-tooltip>-->
+        <!--          </span>-->
+        <!--                    <el-select v-model="info.subTableName" placeholder="请选择" @change="subSelectChange">-->
+        <!--                        <el-option-->
+        <!--                                v-for="(table, index) in tables"-->
+        <!--                                :key="index"-->
+        <!--                                :label="table.tableName + '：' + table.tableComment"-->
+        <!--                                :value="table.tableName"-->
+        <!--                        ></el-option>-->
+        <!--                    </el-select>-->
+        <!--                </el-form-item>-->
+        <!--            </el-col>-->
+        <!--            <el-col :span="12">-->
+        <!--                <el-form-item>-->
+        <!--          <span slot="label">-->
+        <!--            子表关联的外键名-->
+        <!--            <el-tooltip content="子表关联的外键名， 如：user_id" placement="top">-->
+        <!--              <i class="el-icon-question"></i>-->
+        <!--            </el-tooltip>-->
+        <!--          </span>-->
+        <!--                    <el-select v-model="info.subTableFkName" placeholder="请选择">-->
+        <!--                        <el-option-->
+        <!--                                v-for="(column, index) in subColumns"-->
+        <!--                                :key="index"-->
+        <!--                                :label="column.columnName + '：' + column.columnComment"-->
+        <!--                                :value="column.columnName"-->
+        <!--                        ></el-option>-->
+        <!--                    </el-select>-->
+        <!--                </el-form-item>-->
+        <!--            </el-col>-->
+        <!--        </el-row>-->
     </el-form>
 </template>
 <script>
@@ -242,7 +253,7 @@ import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 
 export default {
     name: "BasicInfoForm",
-    components: { Treeselect },
+    components: {Treeselect},
     props: {
         info: {
             type: Object,
@@ -262,12 +273,22 @@ export default {
             subColumns: [],
             templateTypes: [
                 {
-                  "value": 1,
-                   "label": "单表"
+                    "value": 1,
+                    "label": "单表"
                 },
                 {
                     "value": 2,
                     "label": "树表"
+                }
+            ],
+            scenes: [
+                {
+                    "value": 1,
+                    "label": "有权限"
+                },
+                {
+                    "value": 2,
+                    "label": "无权限"
                 }
             ],
             needExcels: [
@@ -282,38 +303,39 @@ export default {
             ],
             rules: {
                 templateType: [
-                    { required: true, message: "请选择生成模板", trigger: "blur" }
+                    {required: true, message: "请选择生成模板", trigger: "blur"}
                 ],
-                needExcel:  [
-                    { required: true, message: "请选择是否需要Excel", trigger: "blur" }
+                needExcel: [
+                    {required: true, message: "请选择是否需要Excel", trigger: "blur"}
                 ],
                 scene: [
-                    { required: true, message: "请选择生成场景", trigger: "blur" }
+                    {required: true, message: "请选择生成场景", trigger: "blur"}
                 ],
                 // packageName: [
                 //   { required: true, message: "请输入生成包路径", trigger: "blur" }
                 // ],
                 moduleName: [
-                    { required: true, message: "请输入生成模块名", trigger: "blur" }
+                    {required: true, message: "请输入生成模块名", trigger: "blur"}
                 ],
                 businessName: [
-                    { required: true, message: "请输入生成业务名", trigger: "blur" }
+                    {required: true, message: "请输入生成业务名", trigger: "blur"}
                 ],
                 businessPackage: [
-                    { required: true, message: "请输入生成业务包", trigger: "blur" }
+                    {required: true, message: "请输入生成业务包", trigger: "blur"}
                 ],
                 className: [
-                    { required: true, message: "请输入生成类名称", trigger: "blur" }
+                    {required: true, message: "请输入生成类名称", trigger: "blur"}
                 ],
                 classComment: [
-                    { required: true, message: "请输入生成类描述", trigger: "blur" }
+                    {required: true, message: "请输入生成类描述", trigger: "blur"}
                 ],
             }
         };
     },
-    created() {},
+    created() {
+    },
     watch: {
-        'info.subTableName': function(val) {
+        'info.subTableName': function (val) {
             this.setSubTableColumns(val);
         }
     },
