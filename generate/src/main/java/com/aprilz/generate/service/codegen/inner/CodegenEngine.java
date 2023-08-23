@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static cn.hutool.core.map.MapUtil.getStr;
 import static cn.hutool.core.text.CharSequenceUtil.*;
@@ -136,6 +137,10 @@ public class CodegenEngine {
         bindingMap.put("columns", columns);
         bindingMap.put("primaryColumn", CollectionUtils.findFirst(columns, CodegenColumnDO::getPrimaryKey)); // 主键字段
         bindingMap.put("sceneEnum", CodegenSceneEnum.valueOf(table.getScene()));
+
+        //这里处理过滤校验`字段重复`
+        List<CodegenColumnDO> fieldRepeats = columns.stream().filter(tmp -> tmp.getFieldRepeat()).collect(Collectors.toList());
+        bindingMap.put("fieldRepeats", fieldRepeats);
 
         bindingMap.put("needExcel",table.getNeedExcel());
 

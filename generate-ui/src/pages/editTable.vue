@@ -77,9 +77,14 @@
           </el-table-column>
           <el-table-column label="允许空" min-width="5%">
             <template v-slot="scope">
-              <el-checkbox true-label="true" false-label="false" v-model="scope.row.nullable"></el-checkbox>
+              <el-checkbox true-label="true" false-label="false" v-show="scope.row.columnName !='id'" v-model="scope.row.nullable"></el-checkbox>
             </template>
           </el-table-column>
+            <el-table-column label="重复" min-width="5%">
+                <template v-slot="scope">
+                    <el-checkbox true-label="true" false-label="false" v-show="scope.row.columnName !='id'" v-model="scope.row.fieldRepeat"></el-checkbox>
+                </template>
+            </el-table-column>
           <el-table-column label="显示类型" min-width="12%">
             <template v-slot="scope">
               <el-select v-model="scope.row.htmlType">

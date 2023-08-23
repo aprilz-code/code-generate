@@ -36,6 +36,11 @@ public class CodegenColumnBaseVO {
     @NotNull(message = "是否主键不能为空")
     private Boolean primaryKey;
 
+
+    @ApiModelProperty(value = "是否允许重复", required = true, example = "false")
+    @NotNull(message = "是否允许重复不能为空")
+    private Boolean fieldRepeat;
+
     @ApiModelProperty(value = "是否自增", required = true, example = "true")
     @NotNull(message = "是否自增不能为空")
     private String autoIncrement;

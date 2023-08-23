@@ -49,6 +49,10 @@ public class CodegenColumnDO extends BaseEntity {
      */
     private Boolean primaryKey;
     /**
+     * 是否允许重复
+     */
+    private Boolean fieldRepeat;
+    /**
      * 是否自增
      */
     private Boolean autoIncrement;

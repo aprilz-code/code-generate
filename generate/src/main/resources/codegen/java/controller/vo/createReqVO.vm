@@ -1,5 +1,10 @@
 package ${basePackage}.${table.moduleName}.controller.${table.businessName}.vo;
 
+#if ($fieldRepeats.size() > 0)
+import com.hujiang.mybatis.validator.annotations.IsFieldRepeat;
+import ${basePackage}.${table.moduleName}.model.db.${table.className}DO;
+import ${basePackage}.${table.moduleName}.service.${table.className}Service;
+#end
 import lombok.*;
 import java.util.*;
 import io.swagger.annotations.*;
@@ -33,6 +38,9 @@ import static ${DateUtilsClassName}.FORMAT_HOUR_MINUTE_SECOND;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
+#if ($fieldRepeats.size() > 0)
+@IsFieldRepeat(fields = {#foreach ($fieldRepeat in $fieldRepeats) "${fieldRepeat.javaField}" #end}, baseClass = ${table.className}DO.class, serviceClass = ${table.className}Service.class, message = "#foreach ($fieldRepeat in $fieldRepeats)${fieldRepeat.columnComment}#if($foreach.hasNext),#end#end存在重复")
+#end
 public class ${sceneEnum.prefixClass}${table.className}CreateReqVO extends ${sceneEnum.prefixClass}${table.className}BaseVO {
 
 #foreach ($column in $columns)
