@@ -1,7 +1,6 @@
 package ${basePackage}.${table.moduleName}.service;
 
 import java.util.*;
-import javax.validation.*;
 import ${basePackage}.${table.moduleName}.controller.${table.businessName}.vo.*;
 import ${basePackage}.${table.moduleName}.model.db.${table.className}DO;
 import com.hujiang.common.mybatis.service.IBaseService;
@@ -20,14 +19,14 @@ public interface ${table.className}Service  extends IBaseService<${table.classNa
      * @param createReqVO 创建信息
      * @return 编号
      */
-    ${primaryColumn.javaType} create${simpleClassName}(@Valid ${sceneEnum.prefixClass}${table.className}CreateReqVO createReqVO);
+    ${primaryColumn.javaType} create${simpleClassName}( ${sceneEnum.prefixClass}${table.className}CreateReqVO createReqVO);
 
     /**
      * 更新${table.classComment}
      *
      * @param updateReqVO 更新信息
      */
-    void update${simpleClassName}(@Valid ${sceneEnum.prefixClass}${table.className}UpdateReqVO updateReqVO);
+    void update${simpleClassName}( ${sceneEnum.prefixClass}${table.className}UpdateReqVO updateReqVO);
 
     /**
      * 删除${table.classComment}
