@@ -19,14 +19,14 @@ public interface ${table.className}Service  extends IBaseService<${table.classNa
      * @param createReqVO 创建信息
      * @return 编号
      */
-    ${primaryColumn.javaType} create${simpleClassName}( ${sceneEnum.prefixClass}${table.className}CreateReqVO createReqVO);
+    ${primaryColumn.javaType} create${simpleClassName}(${sceneEnum.prefixClass}${table.className}CreateReqVO createReqVO);
 
     /**
      * 更新${table.classComment}
      *
      * @param updateReqVO 更新信息
      */
-    void update${simpleClassName}( ${sceneEnum.prefixClass}${table.className}UpdateReqVO updateReqVO);
+    void update${simpleClassName}(${sceneEnum.prefixClass}${table.className}UpdateReqVO updateReqVO);
 
     /**
      * 删除${table.classComment}
