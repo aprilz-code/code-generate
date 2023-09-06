@@ -13,7 +13,7 @@ public class CodegenCreateListReqVO {
 
     @ApiModelProperty(value = "数据源配置的编号", required = true, example = "1")
     @NotNull(message = "数据源配置的编号不能为空")
-    private Long dataSourceConfigId;
+    private String dataSourceConfigId;
 
     @ApiModelProperty(value = "表名数组", required = true, example = "[1, 2, 3]")
     @NotNull(message = "表名数组不能为空")

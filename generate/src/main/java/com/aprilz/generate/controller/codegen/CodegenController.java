@@ -16,6 +16,8 @@ import com.aprilz.generate.entity.DataSourceConfigDO;
 import com.aprilz.generate.mapper.codegen.CodegenConvert;
 import com.aprilz.generate.service.codegen.CodegenService;
 import com.aprilz.generate.utils.ServletUtils;
+import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DataSourceProperty;
+import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -46,21 +48,21 @@ public class CodegenController {
     @Resource
     private CodegenService codegenService;
 
-//    @Resource
-//    private DataSourceProperties dataSourceProperties;
+    @Resource
+    private DynamicDataSourceProperties dynamicDataSourceProperties;
 
 
     @GetMapping("/getDataSourceList")
     @ApiOperation("获得数据源配置列表,单数据源返回它本身")
     public CommonResult<List<DataSourceConfigDO>> getDataSourceList() {
         List<DataSourceConfigDO> list = new ArrayList<>();
-        DataSourceConfigDO config = new DataSourceConfigDO();
-        config.setId(1L);
-        config.setName("master");
-//        config.setPassword(dataSourceProperties.getPassword());
-//        config.setUsername(dataSourceProperties.getUsername());
-//        config.setUrl(dataSourceProperties.getUrl());
-        list.add(config);
+        Map<String, DataSourceProperty> datasource = dynamicDataSourceProperties.getDatasource();
+        datasource.keySet().forEach(data -> {
+            DataSourceConfigDO config = new DataSourceConfigDO();
+            config.setId(data);
+            config.setName(data);
+            list.add(config);
+        });
         return success(list);
     }
 
@@ -71,9 +73,10 @@ public class CodegenController {
             @ApiImplicitParam(name = "comment", value = "描述，模糊匹配", example = "描述", dataTypeClass = String.class)
     })
     public CommonResult<List<DatabaseTableRespVO>> getDatabaseTableList(
+            @RequestParam(value = "dataSourceConfigId") String dataSourceConfigId,
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "comment", required = false) String comment) {
-        return success(codegenService.getDatabaseTableList(1L, name, comment));
+        return success(codegenService.getDatabaseTableList(dataSourceConfigId, name, comment));
     }
 
     @GetMapping("/table/page")

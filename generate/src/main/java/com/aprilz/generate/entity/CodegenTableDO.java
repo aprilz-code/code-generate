@@ -23,7 +23,7 @@ public class CodegenTableDO extends BaseEntity {
      * 数据源编号
      * <p>
      */
-    private Long dataSourceConfigId;
+    private String dataSourceConfigId;
     /**
      * 生成场景
      * <p>

@@ -9,6 +9,12 @@
       <div class="app-container">
         <!-- 操作工作栏 -->
         <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
+            <el-form-item label="数据源" prop="dataSourceConfigId">
+                <el-select v-model="queryParams.dataSourceConfigId" placeholder="请选择数据源" clearable @change="handleQuery">
+                    <el-option v-for="config in dataSourceConfigs"
+                               :key="config.id" :label="config.name" :value="config.id"/>
+                </el-select>
+            </el-form-item>
           <el-form-item label="表名称" prop="tableName">
             <el-input v-model="queryParams.tableName" placeholder="请输入表名称" clearable
                       @keyup.enter.native="handleQuery"/>
@@ -38,7 +44,7 @@
 
         <!-- 列表 -->
         <el-table v-loading="loading" :data="tableList">
-<!--          <el-table-column label="数据源" align="center" :formatter="dataSourceConfigNameFormat"/>-->
+          <el-table-column label="数据源" align="center"  :formatter="dataSourceConfigNameFormat" width="auto" min-width="20%"/>
           <el-table-column label="表名称" align="center" prop="tableName" width="auto" min-width="20%"/>
           <el-table-column label="表描述" align="center" prop="tableComment" :show-overflow-tooltip="true" width="auto" min-width="20%"/>
           <el-table-column label="实体" align="center" prop="className" width="auto" min-width="20%"/>
@@ -131,6 +137,7 @@ export default {
       queryParams: {
         pageNo: 1,
         pageSize: 10,
+        dataSourceConfigId: undefined,
         tableName: undefined,
         tableComment: undefined,
         createTime: []

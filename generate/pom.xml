@@ -44,10 +44,17 @@
 
 
         <!--集成druid连接池-->
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba</groupId>-->
+<!--            <artifactId>druid-spring-boot-starter</artifactId>-->
+<!--            <version>1.2.9</version>-->
+<!--        </dependency>-->
+
+        <!-- 多数据源内置数据源依赖 -->
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.2.9</version>
+            <groupId>com.baomidou</groupId>
+            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+            <version>3.6.1</version>
         </dependency>
 
         <!-- 引入mybatis-plus -->

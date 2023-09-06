@@ -13,20 +13,21 @@ import java.util.List;
 @Mapper
 public interface CodegenTableMapper extends BaseMapperX<CodegenTableDO> {
 
-    default CodegenTableDO selectByTableNameAndDataSourceConfigId(String tableName, Long dataSourceConfigId) {
+    default CodegenTableDO selectByTableNameAndDataSourceConfigId(String tableName, String dataSourceConfigId) {
         return selectOne(CodegenTableDO::getTableName, tableName,
                 CodegenTableDO::getDataSourceConfigId, dataSourceConfigId);
     }
 
     default IPage<CodegenTableDO> selectPage(CodegenTablePageReqVO pageReqVO) {
         return selectPage(pageReqVO, new LambdaQueryWrapperX<CodegenTableDO>()
+                .eqIfPresent(CodegenTableDO::getDataSourceConfigId,pageReqVO.getDataSourceConfigId())
                 .likeIfPresent(CodegenTableDO::getTableName, pageReqVO.getTableName())
                 .likeIfPresent(CodegenTableDO::getTableComment, pageReqVO.getTableComment())
                 .betweenIfPresent(CodegenTableDO::getCreateTime, pageReqVO.getCreateTime())
                 .orderByDesc(CodegenTableDO::getUpdateTime));
     }
 
-    default List<CodegenTableDO> selectListByDataSourceConfigId(Long dataSourceConfigId) {
+    default List<CodegenTableDO> selectListByDataSourceConfigId(String dataSourceConfigId) {
         return selectList(CodegenTableDO::getDataSourceConfigId, dataSourceConfigId);
     }
 

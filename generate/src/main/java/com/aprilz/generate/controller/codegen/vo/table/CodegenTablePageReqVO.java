@@ -19,6 +19,9 @@ import static com.aprilz.generate.utils.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MIN
 @ToString(callSuper = true)
 public class CodegenTablePageReqVO extends PageParam {
 
+    @ApiModelProperty(value = "主键编号", example = "1024")
+    private String dataSourceConfigId;
+
     @ApiModelProperty(value = "表名称", example = "表名称", notes = "模糊匹配")
     private String tableName;
 

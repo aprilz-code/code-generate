@@ -61,14 +61,14 @@ public class CodegenServiceImpl implements CodegenService {
         return ids;
     }
 
-    public Long createCodegen(Long userId, Long dataSourceConfigId, String tableName) {
+    public Long createCodegen(Long userId, String dataSourceConfigId, String tableName) {
         // 从数据库中，获得数据库表结构
         TableInfo tableInfo = databaseTableService.getTable(dataSourceConfigId, tableName);
         // 导入
         return createCodegen0(userId, dataSourceConfigId, tableInfo);
     }
 
-    private Long createCodegen0(Long userId, Long dataSourceConfigId, TableInfo tableInfo) {
+    private Long createCodegen0(Long userId, String dataSourceConfigId, TableInfo tableInfo) {
         // 校验导入的表和字段非空
         checkTableInfo(tableInfo);
         // 校验是否已经存在
@@ -229,7 +229,7 @@ public class CodegenServiceImpl implements CodegenService {
     }
 
     @Override
-    public List<DatabaseTableRespVO> getDatabaseTableList(Long dataSourceConfigId, String name, String comment) {
+    public List<DatabaseTableRespVO> getDatabaseTableList(String dataSourceConfigId, String name, String comment) {
         List<TableInfo> tables = databaseTableService.getTableList(dataSourceConfigId, name, comment);
         // 移除置顶前缀的表名，以及本身表
         tables.removeIf(table -> table.getName().toUpperCase().startsWith("QRTZ_"));

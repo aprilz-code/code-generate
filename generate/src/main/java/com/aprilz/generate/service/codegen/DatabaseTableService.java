@@ -18,7 +18,7 @@ public interface DatabaseTableService {
      * @param commentLike        表描述，模糊匹配
      * @return 表列表
      */
-    List<TableInfo> getTableList(Long dataSourceConfigId, String nameLike, String commentLike);
+    List<TableInfo> getTableList(String dataSourceConfigId, String nameLike, String commentLike);
 
     /**
      * 获得指定表名
@@ -27,6 +27,6 @@ public interface DatabaseTableService {
      * @param tableName          表名称
      * @return 表
      */
-    TableInfo getTable(Long dataSourceConfigId, String tableName);
+    TableInfo getTable(String dataSourceConfigId, String tableName);
 
 }

@@ -87,6 +87,6 @@ public interface CodegenService {
      * @param comment            表描述
      * @return 表定义列表
      */
-    List<DatabaseTableRespVO> getDatabaseTableList(Long dataSourceConfigId, String name, String comment);
+    List<DatabaseTableRespVO> getDatabaseTableList(String dataSourceConfigId, String name, String comment);
 
 }
