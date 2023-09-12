@@ -31,6 +31,6 @@ public interface ${table.className}Convert {
         return page.convert(this::convert);
     };
 
-    List<${sceneEnum.prefixClass}${table.className}ExcelVO> convertList02(List<${table.className}DO> list);
+    List<${sceneEnum.prefixClass}${table.className}ExcelVO> convertExcelList(List<${table.className}DO> list);
 
 }

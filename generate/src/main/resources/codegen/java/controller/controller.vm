@@ -110,7 +110,7 @@ public class ${sceneEnum.prefixClass}${table.className}Controller {
         #else #end
     #if ($needExcel == 2)        List<${table.className}DO> list = ${classNameVar}Service.get${simpleClassName}List(exportReqVO);
         #else #end
-    #if ($needExcel == 2)        List<${sceneEnum.prefixClass}${table.className}ExcelVO> datas = ${table.className}Convert.INSTANCE.convertList02(list);
+    #if ($needExcel == 2)        List<${sceneEnum.prefixClass}${table.className}ExcelVO> datas = ${table.className}Convert.INSTANCE.convertExcelList(list);
         #else #end
     #if ($needExcel == 2)        return datas;
         #else #end
