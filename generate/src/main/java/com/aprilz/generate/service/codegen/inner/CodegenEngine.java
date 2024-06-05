@@ -109,25 +109,25 @@ public class CodegenEngine {
         globalBindingMap.put("baseFrameworkPackage", codegenProperties.getBasePackage()
                 + '.' + "framework"); // 用于后续获取测试类的 package 地址
         // 全局 Java Bean
-        globalBindingMap.put("CommonResultClassName", "com.hujiang.common.core.model.result.Result");
+        globalBindingMap.put("CommonResultClassName", "com.aprilz.common.core.model.result.Result");
         globalBindingMap.put("PageResultClassName", "com.baomidou.mybatisplus.core.metadata.IPage");
         // VO 类，独有字段
-        globalBindingMap.put("PageParamClassName", "com.hujiang.common.core.model.req.PageParam");
+        globalBindingMap.put("PageParamClassName", "com.aprilz.common.core.model.req.PageParam");
         //字典
         // globalBindingMap.put("DictFormatClassName", DictFormat.class.getName());
         // DO 类，独有字段
-        globalBindingMap.put("BaseEntityClassName", "com.hujiang.common.core.model.base.BaseEntity");
+        globalBindingMap.put("BaseEntityClassName", "com.aprilz.common.core.model.base.BaseEntity");
         globalBindingMap.put("baseDOFields", CodegenBuilder.BASE_DO_FIELDS);
-        globalBindingMap.put("QueryWrapperClassName", "com.hujiang.common.mybatis.mapper.query.LambdaQueryWrapperX");
-        globalBindingMap.put("BaseMapperClassName", "com.hujiang.common.mybatis.mapper.IBaseMapper;");
+        globalBindingMap.put("QueryWrapperClassName", "com.aprilz.common.mybatis.mapper.query.LambdaQueryWrapperX");
+        globalBindingMap.put("BaseMapperClassName", "com.aprilz.common.mybatis.mapper.IBaseMapper;");
         // Util 工具类
         //  globalBindingMap.put("ServiceExceptionUtilClassName", ServiceExceptionUtil.class.getName());
-        globalBindingMap.put("DateUtilsClassName", "com.hujiang.common.core.util.DateUtils");
+        globalBindingMap.put("DateUtilsClassName", "com.aprilz.common.core.util.DateUtils");
         //       globalBindingMap.put("ExcelUtilsClassName", ExcelUtils.class.getName());
-        globalBindingMap.put("ObjectUtilsClassName", "com.hujiang.common.core.util.ObjectUtils");
+        globalBindingMap.put("ObjectUtilsClassName", "com.aprilz.common.core.util.ObjectUtils");
 //        globalBindingMap.put("DictConvertClassName", DictConvert.class.getName());
-        globalBindingMap.put("OperateLogClassName", "com.hujiang.common.log.annotations.SystemLog");
-        globalBindingMap.put("OperateTypeEnumClassName", "com.hujiang.common.log.enums.OperateTypeEnum");
+        globalBindingMap.put("OperateLogClassName", "com.aprilz.common.log.annotations.SystemLog");
+        globalBindingMap.put("OperateTypeEnumClassName", "com.aprilz.common.log.enums.OperateTypeEnum");
     }
 
     public Map<String, String> execute(CodegenTableDO table, List<CodegenColumnDO> columns) {

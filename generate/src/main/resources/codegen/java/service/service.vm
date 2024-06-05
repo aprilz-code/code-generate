@@ -3,7 +3,7 @@ package ${basePackage}.${table.moduleName}.service;
 import java.util.*;
 import ${basePackage}.${table.moduleName}.controller.${table.businessName}.vo.*;
 import ${basePackage}.${table.moduleName}.model.db.${table.className}DO;
-import com.hujiang.common.mybatis.service.IBaseService;
+import com.aprilz.common.mybatis.service.IBaseService;
 import ${PageResultClassName};
 
 /**

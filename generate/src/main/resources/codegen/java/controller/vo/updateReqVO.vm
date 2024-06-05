@@ -1,7 +1,7 @@
 package ${basePackage}.${table.moduleName}.controller.${table.businessName}.vo;
 
 #if ($fieldRepeats.size() > 0)
-import com.hujiang.common.mybatis.validator.annotations.IsFieldRepeat;
+import com.aprilz.common.mybatis.validator.annotations.IsFieldRepeat;
 import ${basePackage}.${table.moduleName}.model.db.${table.className}DO;
 import ${basePackage}.${table.moduleName}.service.${table.className}Service;
 #end
