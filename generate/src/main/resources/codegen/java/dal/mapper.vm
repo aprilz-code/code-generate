@@ -49,12 +49,13 @@ import ${basePackage}.${table.moduleName}.controller.${table.businessName}.vo.*;
 @Mapper
 public interface ${table.className}Mapper extends IBaseMapper<${table.className}DO> {
 
-    default IPage<${table.className}DO> selectPage(${sceneEnum.prefixClass}${table.className}PageReqVO reqVO) {
-        return selectPage(reqVO, new LambdaQueryWrapperX<${table.className}DO>()
+
+    default List<${table.className}DO> selectPage(${sceneEnum.prefixClass}${table.className}PageReqVO reqVO) {
+        return selectList(new LambdaQueryWrapperX<${table.className}DO>()
 			#listCondition()
                 .orderByDesc(${table.className}DO::getUpdateTime));## 大多数情况下，getUpdateTime 倒序
-
     }
+
 
     default List<${table.className}DO> selectList(${sceneEnum.prefixClass}${table.className}ExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<${table.className}DO>()

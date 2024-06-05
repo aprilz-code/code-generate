@@ -1,7 +1,7 @@
 package ${basePackage}.${table.moduleName}.service.impl;
 
 import  ${basePackage}.${table.moduleName}.service.${table.className}Service;
-import com.hujiang.common.mybatis.service.impl.BaseService;
+import com.hujiang.framework.config.mybatisplus.service.impl.BaseService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
@@ -62,7 +62,7 @@ public class ${table.className}ServiceImpl extends BaseService<${table.className
     @Override
     public PageInfo<${sceneEnum.prefixClass}${table.className}RespVO> get${simpleClassName}Page(${sceneEnum.prefixClass}${table.className}PageReqVO pageReqVO) {
         PageHelper.startPage(pageReqVO.getPageNum(), pageReqVO.getPageSize());
-        List<${table.className}DO> pageResult = ${classNameVar}Mapper.selectList(pageReqVO);
+        List<${table.className}DO> pageResult = ${classNameVar}Mapper.selectPage(pageReqVO);
         return ${table.className}Convert.INSTANCE.convertPage(new PageInfo<>(pageResult));
    }
 

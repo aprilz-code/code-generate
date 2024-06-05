@@ -1,16 +1,13 @@
 version: '3'
 services:
-  #授权服务
-  mogu_admin:
+  security_gene:
     image: code_gengrate:latest
-    container_name: gengrate
+    container_name: security_gene
     restart: always
     ports:
-      - 8085:8085
+      - 8086:8086
     networks:
       - ap
-    volumes:
-      - ../log/:/logs/
     privileged: true
 networks:
   ap:

@@ -112,7 +112,7 @@ public class CodegenEngine {
         globalBindingMap.put("CommonResultClassName", "com.hujiang.framework.web.domain.Result");
         globalBindingMap.put("PageResultClassName", "com.github.pagehelper.PageInfo");
         // VO 类，独有字段
-        globalBindingMap.put("PageParamClassName", "com.hujiang.framework.config.mybatisplus.model.req");
+        globalBindingMap.put("PageParamClassName", "com.hujiang.framework.config.mybatisplus.model.req.PageParam");
         //字典
         // globalBindingMap.put("DictFormatClassName", DictFormat.class.getName());
         // DO 类，独有字段
@@ -122,7 +122,7 @@ public class CodegenEngine {
         globalBindingMap.put("BaseMapperClassName", "com.hujiang.framework.config.mybatisplus.mapper.IBaseMapper;");
         // Util 工具类
         //  globalBindingMap.put("ServiceExceptionUtilClassName", ServiceExceptionUtil.class.getName());
-        globalBindingMap.put("DateUtilsClassName", "com.hujiang.common.core.util.DateUtils");
+        globalBindingMap.put("DateUtilsClassName", "com.hujiang.common.utils.DateUtils");
         //       globalBindingMap.put("ExcelUtilsClassName", ExcelUtils.class.getName());
         globalBindingMap.put("ObjectUtilsClassName", "com.hujiang.common.core.util.ObjectUtils");
 //        globalBindingMap.put("DictConvertClassName", DictConvert.class.getName());
@@ -210,15 +210,13 @@ public class CodegenEngine {
     }
 
     private static String javaModuleFilePath(String path, String module, String src) {
-        return "${table.moduleName}-service/" + // 顶级模块
-                "${table.moduleName}-service-" + module + "/" + // 子模块
+        return "zhgd_security/" + // 子模块
                 "src/" + src + "/java/${basePackage}/${table.moduleName}/" + path + ".java";
     }
 
     private static String mapperXmlFilePath() {
-        return "${table.moduleName}-service/" + // 顶级模块
-                "${table.moduleName}-service-biz/" + // 子模块
-                "src/main/resources/mapper/${table.className}Mapper.xml";
+        return "zhgd_security/" + // 子模块
+                "src/main/resources/mapper/${table.moduleName}/${table.className}Mapper.xml";
     }
 
     private static String vueTemplatePath(String path) {
