@@ -7,7 +7,7 @@ COMMIT;
 DROP TABLE IF EXISTS `infra_codegen_column`;
 CREATE TABLE `infra_codegen_column`
 (
-    `id`                       bigint(20)                              NOT NULL COMMENT '编号',
+    `id`                       bigint(20)           AUTO_INCREMENT                    NOT NULL COMMENT '编号',
     `table_id`                 bigint(20)                              NOT NULL COMMENT '表编号',
     `column_name`              varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字段名',
     `data_type`                varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字段类型',
@@ -49,7 +49,7 @@ COMMIT;
 DROP TABLE IF EXISTS `infra_codegen_table`;
 CREATE TABLE `infra_codegen_table`
 (
-    `id`                    bigint(20)                              NOT NULL COMMENT '编号',
+    `id`                    bigint(20)            AUTO_INCREMENT                   NOT NULL COMMENT '编号',
     `data_source_config_id` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '数据源配置的编号',
     `scene`                 tinyint(4)                              NOT NULL DEFAULT '1' COMMENT '生成场景',
     `table_name`            varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '表名称',
