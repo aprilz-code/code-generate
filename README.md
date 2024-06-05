@@ -4,7 +4,7 @@ Mybatis-plus代码生成器
 Mybatis-plus代码生成器
 
 docker build -t  registry.cn-shenzhen.aliyuncs.com/whiteblog/code_gengrate:sup .  
-docker push  registry.cn-shenzhen.aliyuncs.com/whiteblog/code_gengrate:sup .
+docker push  registry.cn-shenzhen.aliyuncs.com/whiteblog/code_gengrate:sup 
 
 docker run -d --name code_gengrate -p 8085:8085 registry.cn-shenzhen.aliyuncs.com/whiteblog/code_gengrate:sup registry.cn-shenzhen.aliyuncs.com/whiteblog/code_gengrate:security
 
