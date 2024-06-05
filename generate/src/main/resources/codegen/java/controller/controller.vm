@@ -4,8 +4,8 @@ package ${basePackage}.${table.moduleName}.controller.${table.businessName};
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
-#if ($needExcel == 2)import com.hujiang.excel.core.annotations.ResponseExcel;
-import com.hujiang.excel.core.annotations.RequestExcel;
+#if ($needExcel == 2)import com.hujiang.common.excel.core.annotations.ResponseExcel;
+import com.hujiang.common.excel.core.annotations.RequestExcel;
 #else #end
 #if ($sceneEnum.scene == 1)import cn.dev33.satoken.annotation.SaCheckPermission;#end
 
