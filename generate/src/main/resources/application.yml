@@ -15,18 +15,18 @@ spring:
       seata: false
       # 严格模式 匹配不到数据源则报错
       strict: true
-      primary: sup
+      primary: security
       datasource:
-        sup:
-          url: jdbc:mysql://192.168.1.25:3306/supplier?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true
-          username: zhgd_v2_dev
-          password: zhgd_v2_dev
+        security:
+          url: jdbc:mysql://192.168.1.233:3306/zhgd_security?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true
+          username: zhgd_v2_test
+          password: zhgd_v2_test
           driver-class-name: com.mysql.cj.jdbc.Driver
-        cost:
-          url: jdbc:mysql://192.168.1.25:3306/hujiang-cloud-dev?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true
-          username: zhgd_v2_dev
-          password: zhgd_v2_dev
-          driver-class-name: com.mysql.cj.jdbc.Driver
+#        cost:
+#          url: jdbc:mysql://192.168.1.25:3306/hujiang-cloud-dev?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true
+#          username: zhgd_v2_dev
+#          password: zhgd_v2_dev
+#          driver-class-name: com.mysql.cj.jdbc.Driver
       hikari:
         # 最大连接池数量
         maxPoolSize: 20
@@ -76,5 +76,5 @@ mybatis-plus:
 
 
 codegen:
-  base-package: com.hujiang
+  base-package: com.hujiang.security.api
   db-schemas: hujiang
