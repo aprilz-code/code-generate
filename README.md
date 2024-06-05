@@ -1,6 +1,12 @@
+Mybatis-plus代码生成器  
+代码地址 ： https://github.com/aprilz-code/tiny.git  
+代码生成器地址：https://github.com/aprilz-code/code-generate.git
 Mybatis-plus代码生成器
 
+docker build -t  registry.cn-shenzhen.aliyuncs.com/whiteblog/code_gengrate:sup .  
+docker push  registry.cn-shenzhen.aliyuncs.com/whiteblog/code_gengrate:sup .
 
+docker run -d --name code_gengrate -p 8085:8085 registry.cn-shenzhen.aliyuncs.com/whiteblog/code_gengrate:sup registry.cn-shenzhen.aliyuncs.com/whiteblog/code_gengrate:security
 
 cd /src/main/resources  
 docker build -t code_gengrate:latest .  
