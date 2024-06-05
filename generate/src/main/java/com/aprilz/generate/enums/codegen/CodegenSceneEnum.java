@@ -7,8 +7,6 @@ import static cn.hutool.core.util.ArrayUtil.firstMatch;
 
 /**
  * 代码生成的场景枚举
- *
- 
  */
 @AllArgsConstructor
 @Getter

@@ -18,7 +18,7 @@ public class CodegenTableRespVO extends CodegenTableBaseVO {
     private Long id;
 
     @ApiModelProperty(value = "主键编号", required = true, example = "1024")
-    private Integer dataSourceConfigId;
+    private String dataSourceConfigId;
 
     @ApiModelProperty(value = "创建时间", required = true)
     private LocalDateTime createTime;

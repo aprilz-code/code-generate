@@ -1,7 +1,7 @@
 package com.aprilz.generate.entity;
 
 
-import com.aprilz.generate.common.BaseDO;
+import com.aprilz.generate.common.BaseEntity;
 import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -10,26 +10,20 @@ import lombok.experimental.Accessors;
 
 /**
  * 代码生成 table 表定义
- *
- 
  */
 @TableName(value = "infra_codegen_table", autoResultMap = true)
 @KeySequence("infra_codegen_table_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-public class CodegenTableDO extends BaseDO {
+public class CodegenTableDO extends BaseEntity {
 
-    /**
-     * ID 编号
-     */
-    private Long id;
 
     /**
      * 数据源编号
      * <p>
      */
-    private Long dataSourceConfigId;
+    private String dataSourceConfigId;
     /**
      * 生成场景
      * <p>
@@ -83,10 +77,16 @@ public class CodegenTableDO extends BaseDO {
     // ========== 生成相关字段 ==========
 
     /**
-     * 模板类型
+     * 模板类型 1单表 2数表
      * <p>
      */
     private Integer templateType;
+
+    /**
+     * 是否生成excel 1不生成 2生成"
+     * <p>
+     */
+    private Integer needExcel;
 
     // ========== 菜单相关字段 ==========
 

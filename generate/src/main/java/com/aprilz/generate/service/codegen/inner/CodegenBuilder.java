@@ -3,7 +3,7 @@ package com.aprilz.generate.service.codegen.inner;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
-import com.aprilz.generate.common.BaseDO;
+import com.aprilz.generate.common.BaseEntity;
 import com.aprilz.generate.entity.CodegenColumnDO;
 import com.aprilz.generate.entity.CodegenTableDO;
 import com.aprilz.generate.enums.codegen.CodegenColumnHtmlTypeEnum;
@@ -63,7 +63,7 @@ public class CodegenBuilder {
      */
     public static final String TENANT_ID_FIELD = "tenantId";
     /**
-     * {@link com.aprilz.generate.common.BaseDO} 的字段
+     * {@link com.aprilz.generate.common.BaseEntity} 的字段
      */
     public static final Set<String> BASE_DO_FIELDS = new HashSet<>();
     /**
@@ -84,9 +84,9 @@ public class CodegenBuilder {
     private static final Set<String> LIST_OPERATION_RESULT_EXCLUDE_COLUMN = Sets.newHashSet();
 
     static {
-        Arrays.stream(ReflectUtil.getFields(BaseDO.class)).forEach(field -> BASE_DO_FIELDS.add(field.getName()));
+        Arrays.stream(ReflectUtil.getFields(BaseEntity.class)).forEach(field -> BASE_DO_FIELDS.add(field.getName()));
         //去掉租户字段
-       // BASE_DO_FIELDS.add(TENANT_ID_FIELD);
+        // BASE_DO_FIELDS.add(TENANT_ID_FIELD);
         // 处理 OPERATION 相关的字段
         CREATE_OPERATION_EXCLUDE_COLUMN.addAll(BASE_DO_FIELDS);
         UPDATE_OPERATION_EXCLUDE_COLUMN.addAll(BASE_DO_FIELDS);
@@ -94,6 +94,7 @@ public class CodegenBuilder {
         LIST_OPERATION_EXCLUDE_COLUMN.remove("createTime"); // 创建时间，还是可能需要传递的
         LIST_OPERATION_RESULT_EXCLUDE_COLUMN.addAll(BASE_DO_FIELDS);
         LIST_OPERATION_RESULT_EXCLUDE_COLUMN.remove("createTime"); // 创建时间，还是需要返回的
+        LIST_OPERATION_RESULT_EXCLUDE_COLUMN.remove("id"); //id修改时需要使用
     }
 
     public CodegenTableDO buildTable(TableInfo tableInfo) {

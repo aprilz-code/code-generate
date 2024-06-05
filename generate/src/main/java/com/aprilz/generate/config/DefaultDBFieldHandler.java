@@ -1,7 +1,7 @@
 package com.aprilz.generate.config;
 
 
-import com.aprilz.generate.common.BaseDO;
+import com.aprilz.generate.common.BaseEntity;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
 
@@ -19,8 +19,8 @@ public class DefaultDBFieldHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        if (Objects.nonNull(metaObject) && metaObject.getOriginalObject() instanceof BaseDO) {
-            BaseDO baseDO = (BaseDO) metaObject.getOriginalObject();
+        if (Objects.nonNull(metaObject) && metaObject.getOriginalObject() instanceof BaseEntity) {
+            BaseEntity baseDO = (BaseEntity) metaObject.getOriginalObject();
 
             LocalDateTime current = LocalDateTime.now();
             // 创建时间为空，则以当前时间为插入时间

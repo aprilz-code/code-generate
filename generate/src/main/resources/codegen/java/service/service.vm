@@ -1,10 +1,9 @@
-package ${basePackage}.service.${table.businessName};
+package ${basePackage}.${table.moduleName}.service;
 
 import java.util.*;
-import javax.validation.*;
-import ${basePackage}.controller.${table.businessName}.vo.*;
-import ${basePackage}.dal.dataobject.${table.businessName}.${table.className}DO;
-import com.baomidou.mybatisplus.extension.service.IService;
+import ${basePackage}.${table.moduleName}.controller.${table.businessName}.vo.*;
+import ${basePackage}.${table.moduleName}.model.db.${table.className}DO;
+import com.aprilz.common.mybatis.service.IBaseService;
 import ${PageResultClassName};
 
 /**
@@ -12,7 +11,7 @@ import ${PageResultClassName};
  *
  * @author ${table.author}
  */
-public interface ${table.className}Service  extends IService<${table.className}DO>{
+public interface ${table.className}Service  extends IBaseService<${table.className}DO>{
 
     /**
      * 创建${table.classComment}
@@ -20,14 +19,14 @@ public interface ${table.className}Service  extends IService<${table.className}D
      * @param createReqVO 创建信息
      * @return 编号
      */
-    ${primaryColumn.javaType} create${simpleClassName}(@Valid ${sceneEnum.prefixClass}${table.className}CreateReqVO createReqVO);
+    ${primaryColumn.javaType} create${simpleClassName}(${sceneEnum.prefixClass}${table.className}CreateReqVO createReqVO);
 
     /**
      * 更新${table.classComment}
      *
      * @param updateReqVO 更新信息
      */
-    void update${simpleClassName}(@Valid ${sceneEnum.prefixClass}${table.className}UpdateReqVO updateReqVO);
+    void update${simpleClassName}(${sceneEnum.prefixClass}${table.className}UpdateReqVO updateReqVO);
 
     /**
      * 删除${table.classComment}
@@ -58,7 +57,7 @@ public interface ${table.className}Service  extends IService<${table.className}D
      * @param pageReqVO 分页查询
      * @return ${table.classComment}分页
      */
-    PageResult<${table.className}DO> get${simpleClassName}Page(${sceneEnum.prefixClass}${table.className}PageReqVO pageReqVO);
+    IPage<${table.className}DO> get${simpleClassName}Page(${sceneEnum.prefixClass}${table.className}PageReqVO pageReqVO);
 
     /**
      * 获得${table.classComment}列表, 用于 Excel 导出
@@ -67,14 +66,6 @@ public interface ${table.className}Service  extends IService<${table.className}D
      * @return ${table.classComment}列表
      */
     List<${table.className}DO> get${simpleClassName}List(${sceneEnum.prefixClass}${table.className}ExportReqVO exportReqVO);
-
-    /**
-    *  校验是否存在
-    *
-    * @param id 查询条件
-    * 不存在抛出异常
-    */
-    void validate${table.className}Exists(Long id);
 
 
 }

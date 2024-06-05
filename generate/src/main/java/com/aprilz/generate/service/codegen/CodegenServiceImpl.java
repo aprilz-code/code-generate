@@ -2,7 +2,6 @@ package com.aprilz.generate.service.codegen;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import com.aprilz.generate.common.api.PageResult;
 import com.aprilz.generate.controller.codegen.vo.CodegenCreateListReqVO;
 import com.aprilz.generate.controller.codegen.vo.CodegenUpdateReqVO;
 import com.aprilz.generate.controller.codegen.vo.table.CodegenTablePageReqVO;
@@ -16,6 +15,7 @@ import com.aprilz.generate.mapper.codegen.CodegenConvert;
 import com.aprilz.generate.service.codegen.inner.CodegenBuilder;
 import com.aprilz.generate.service.codegen.inner.CodegenEngine;
 import com.aprilz.generate.utils.CollectionUtils;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import org.springframework.stereotype.Service;
@@ -35,8 +35,6 @@ import static com.aprilz.generate.utils.ServiceExceptionUtil.exception;
 
 /**
  * 代码生成 Service 实现类
- *
- 
  */
 @Service
 public class CodegenServiceImpl implements CodegenService {
@@ -63,14 +61,14 @@ public class CodegenServiceImpl implements CodegenService {
         return ids;
     }
 
-    public Long createCodegen(Long userId, Long dataSourceConfigId, String tableName) {
+    public Long createCodegen(Long userId, String dataSourceConfigId, String tableName) {
         // 从数据库中，获得数据库表结构
         TableInfo tableInfo = databaseTableService.getTable(dataSourceConfigId, tableName);
         // 导入
         return createCodegen0(userId, dataSourceConfigId, tableInfo);
     }
 
-    private Long createCodegen0(Long userId, Long dataSourceConfigId, TableInfo tableInfo) {
+    private Long createCodegen0(Long userId, String dataSourceConfigId, TableInfo tableInfo) {
         // 校验导入的表和字段非空
         checkTableInfo(tableInfo);
         // 校验是否已经存在
@@ -200,7 +198,7 @@ public class CodegenServiceImpl implements CodegenService {
     }
 
     @Override
-    public PageResult<CodegenTableDO> getCodegenTablePage(CodegenTablePageReqVO pageReqVO) {
+    public IPage<CodegenTableDO> getCodegenTablePage(CodegenTablePageReqVO pageReqVO) {
         return codegenTableMapper.selectPage(pageReqVO);
     }
 
@@ -231,7 +229,7 @@ public class CodegenServiceImpl implements CodegenService {
     }
 
     @Override
-    public List<DatabaseTableRespVO> getDatabaseTableList(Long dataSourceConfigId, String name, String comment) {
+    public List<DatabaseTableRespVO> getDatabaseTableList(String dataSourceConfigId, String name, String comment) {
         List<TableInfo> tables = databaseTableService.getTableList(dataSourceConfigId, name, comment);
         // 移除置顶前缀的表名，以及本身表
         tables.removeIf(table -> table.getName().toUpperCase().startsWith("QRTZ_"));

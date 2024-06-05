@@ -3,7 +3,7 @@
   <el-dialog title="导入表" :visible.sync="visible" width="800px" top="5vh" append-to-body>
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true">
       <el-form-item label="数据源" prop="dataSourceConfigId">
-        <el-select v-model="queryParams.dataSourceConfigId" placeholder="请选择数据源" clearable>
+        <el-select v-model="queryParams.dataSourceConfigId" placeholder="请选择数据源" clearable @change="handleQuery">
           <el-option v-for="config in dataSourceConfigs"
                      :key="config.id" :label="config.name" :value="config.id"/>
         </el-select>

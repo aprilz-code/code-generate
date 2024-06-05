@@ -6,10 +6,42 @@ spring:
   application:
     name: code-generate
   datasource:
-    url: jdbc:mysql://49.235.99.56:3306/generate?useUnicode=true&allowMultiQueries=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true
-    username: code
-    password: code123456
-    # \u5168\u5C40\u65E5\u671F\u683C\u5F0F\u5316
+    type: com.zaxxer.hikari.HikariDataSource
+    # 动态数据源文档 https://github.com/baomidou/dynamic-datasource-spring-boot-starter
+    dynamic:
+      # 性能分析插件(有性能损耗 不建议生产环境使用)
+      p6spy: false
+      # 开启seata代理，开启后默认每个数据源都代理，如果某个不需要代理可单独关闭
+      seata: false
+      # 严格模式 匹配不到数据源则报错
+      strict: true
+      primary: sup
+      datasource:
+        sup:
+          url: jdbc:mysql://192.168.1.25:3306/supplier?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true
+          username: root
+          password: 123456
+          driver-class-name: com.mysql.cj.jdbc.Driver
+        cost:
+          url: jdbc:mysql://192.168.1.25:3306/aprilz-cloud-dev?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true
+          username: root
+          password: 123456
+          driver-class-name: com.mysql.cj.jdbc.Driver
+      hikari:
+        # 最大连接池数量
+        maxPoolSize: 20
+        # 最小空闲线程数量
+        minIdle: 10
+        # 配置获取连接等待超时的时间
+        connectionTimeout: 10000
+        # 校验超时时间
+        validationTimeout: 5000
+        # 空闲连接存活最大时间，默认10分钟
+        idleTimeout: 60000
+        # 此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认30分钟
+        maxLifetime: 900000
+        # 连接测试query（配置检测连接是否有效）
+        connectionTestQuery: SELECT 1
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
@@ -44,5 +76,5 @@ mybatis-plus:
 
 
 codegen:
-  base-package: com.aprilz.tiny
+  base-package: com.aprilz
   db-schemas: aprilz

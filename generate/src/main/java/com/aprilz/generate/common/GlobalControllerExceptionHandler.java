@@ -4,13 +4,11 @@ package com.aprilz.generate.common;
 import com.aprilz.generate.common.api.CommonResult;
 import com.aprilz.generate.common.api.ResultCode;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
@@ -101,8 +99,6 @@ public class GlobalControllerExceptionHandler {
         ConstraintViolationException exception = (ConstraintViolationException) e;
         return CommonResult.error(ResultCode.PARAMS_ERROR.code(), exception.getMessage());
     }
-
-
 
 
     @ExceptionHandler(RuntimeException.class)

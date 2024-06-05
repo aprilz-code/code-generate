@@ -6,9 +6,9 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 /**
-* 代码生成 Base VO，提供给添加、修改、详细的子 VO 使用
-* 如果子 VO 存在差异的字段，请不要添加到这里，影响 Swagger 文档生成
-*/
+ * 代码生成 Base VO，提供给添加、修改、详细的子 VO 使用
+ * 如果子 VO 存在差异的字段，请不要添加到这里，影响 Swagger 文档生成
+ */
 @Data
 public class CodegenTableBaseVO {
 
@@ -47,9 +47,14 @@ public class CodegenTableBaseVO {
     @NotNull(message = "作者不能为空")
     private String author;
 
-    @ApiModelProperty(value = "模板类型", required = true, example = "1", notes = "参见 CodegenTemplateTypeEnum 枚举")
+    @ApiModelProperty(value = "模板类型", required = true, example = "1", notes = "1单表 2数表")
     @NotNull(message = "模板类型不能为空")
     private Integer templateType;
+
+
+    @ApiModelProperty(value = "是否需要Excel", required = true, example = "1", notes = "1不生成 2生成")
+    @NotNull(message = "是否需要Excel不能为空")
+    private Integer needExcel;
 
     @ApiModelProperty(value = "父菜单编号", example = "1024")
     private Long parentMenuId;

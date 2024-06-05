@@ -5,20 +5,11 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.template.TemplateConfig;
 import cn.hutool.extra.template.TemplateEngine;
 import cn.hutool.extra.template.engine.velocity.VelocityEngine;
-import com.aprilz.generate.common.BaseDO;
-import com.aprilz.generate.common.api.CommonResult;
-import com.aprilz.generate.common.api.PageParam;
-import com.aprilz.generate.common.api.PageResult;
-import com.aprilz.generate.common.mybatis.mapper.BaseMapperX;
-import com.aprilz.generate.common.mybatis.query.LambdaQueryWrapperX;
 import com.aprilz.generate.config.CodegenProperties;
 import com.aprilz.generate.entity.CodegenColumnDO;
 import com.aprilz.generate.entity.CodegenTableDO;
 import com.aprilz.generate.enums.codegen.CodegenSceneEnum;
 import com.aprilz.generate.utils.CollectionUtils;
-import com.aprilz.generate.utils.DateUtils;
-import com.aprilz.generate.utils.ExcelUtils;
-import com.aprilz.generate.utils.ServiceExceptionUtil;
 import com.google.common.collect.Maps;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +19,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static cn.hutool.core.map.MapUtil.getStr;
 import static cn.hutool.core.text.CharSequenceUtil.*;
@@ -38,13 +30,13 @@ import static cn.hutool.core.text.CharSequenceUtil.*;
  * <p>
  * 考虑到 Java 模板引擎的框架非常多，Freemarker、Velocity、Thymeleaf 等等，所以我们采用 hutool 封装的 {@link cn.hutool.extra.template.Template} 抽象
  *
-
+ * @author 芋道源码
  */
 @Component
 public class CodegenEngine {
 
     /**
-     * 模板配置(important)
+     * 模板配置
      * key：模板在 resources 的地址
      * value：生成的路径
      */
@@ -59,36 +51,36 @@ public class CodegenEngine {
             .put(javaTemplatePath("controller/vo/excelVO"), javaModuleImplVOFilePath("ExcelVO"))
             .put(javaTemplatePath("controller/controller"), javaModuleImplControllerFilePath())
             .put(javaTemplatePath("convert/convert"),
-                    javaModuleImplMainFilePath("convert/${table.businessName}/${table.className}Convert"))
+                    javaModuleImplMainFilePath("convert/${table.className}Convert"))
             .put(javaTemplatePath("dal/do"),
-                    javaModuleImplMainFilePath("dal/dataobject/${table.businessName}/${table.className}DO"))
+                    javaModuleImplMainFilePath("model/db/${table.className}DO"))
             .put(javaTemplatePath("dal/mapper"),
-                    javaModuleImplMainFilePath("dal/${table.businessName}/${table.className}Mapper"))
+                    javaModuleImplMainFilePath("mapper/${table.className}Mapper"))
             .put(javaTemplatePath("dal/mapper.xml"), mapperXmlFilePath())
             .put(javaTemplatePath("service/impl/serviceImpl"),
-                    javaModuleImplMainFilePath("service/${table.businessName}/impl/${table.className}ServiceImpl"))
+                    javaModuleImplMainFilePath("service/impl/${table.className}ServiceImpl"))
             .put(javaTemplatePath("service/service"),
-                    javaModuleImplMainFilePath("service/${table.businessName}/${table.className}Service"))
+                    javaModuleImplMainFilePath("service/${table.className}Service"))
             // Java module-biz Test
-            .put(javaTemplatePath("test/serviceTest"),
-                    javaModuleImplTestFilePath("service/${table.businessName}/${table.className}ServiceImplTest"))
+//            .put(javaTemplatePath("test/serviceTest"),
+//                    javaModuleImplTestFilePath("service/${table.businessName}/${table.className}UnitTest"))
             // Java module-api Main
-            .put(javaTemplatePath("enums/errorcode"), javaModuleApiMainFilePath("enums/ErrorCodeConstants_手动操作"))
-            // Vue2
-            .put(vueTemplatePath("views/index.vue"),
-                    vueFilePath("views/${classNameVar}/index.vue"))
-            .put(vueTemplatePath("api/api.js"),
-                    vueFilePath("api/${classNameVar}.js"))
-            // Vue3
-            .put(vue3TemplatePath("views/index.vue"),
-                    vue3FilePath("views/${classNameVar}/index.vue"))
-            .put(vue3TemplatePath("views/data.ts"),
-                    vue3FilePath("views/${classNameVar}/${classNameVar}.data.ts"))
-            .put(vue3TemplatePath("api/api.ts"),
-                    vue3FilePath("api/${classNameVar}/index.ts"))
-            // SQL
-            .put("codegen/sql/sql.vm", "sql/sql.sql")
-            .put("codegen/sql/h2.vm", "sql/h2.sql")
+//            .put(javaTemplatePath("enums/errorcode"), javaModuleApiMainFilePath("enums/ErrorCodeConstants_手动操作"))
+//            // Vue2
+//            .put(vueTemplatePath("views/index.vue"),
+//                    vueFilePath("views/${table.moduleName}/${classNameVar}/index.vue"))
+//            .put(vueTemplatePath("api/api.js"),
+//                    vueFilePath("api/${table.moduleName}/${classNameVar}.js"))
+//            // Vue3
+//            .put(vue3TemplatePath("views/index.vue"),
+//                    vue3FilePath("views/${table.moduleName}/${classNameVar}/index.vue"))
+//            .put(vue3TemplatePath("views/data.ts"),
+//                    vue3FilePath("views/${table.moduleName}/${classNameVar}/${classNameVar}.data.ts"))
+//            .put(vue3TemplatePath("api/api.ts"),
+//                    vue3FilePath("api/${table.moduleName}/${classNameVar}/index.ts"))
+//            // SQL
+//            .put("codegen/sql/sql.vm", "sql/sql.sql")
+//            .put("codegen/sql/h2.vm", "sql/h2.sql")
             .build();
 
     @Resource
@@ -117,25 +109,25 @@ public class CodegenEngine {
         globalBindingMap.put("baseFrameworkPackage", codegenProperties.getBasePackage()
                 + '.' + "framework"); // 用于后续获取测试类的 package 地址
         // 全局 Java Bean
-        globalBindingMap.put("CommonResultClassName", CommonResult.class.getName());
-        globalBindingMap.put("PageResultClassName", PageResult.class.getName());
+        globalBindingMap.put("CommonResultClassName", "com.aprilz.common.core.model.result.Result");
+        globalBindingMap.put("PageResultClassName", "com.baomidou.mybatisplus.core.metadata.IPage");
         // VO 类，独有字段
-        globalBindingMap.put("PageParamClassName", PageParam.class.getName());
-        //字典TODO
-        //  globalBindingMap.put("DictFormatClassName", DictFormat.class.getName());
+        globalBindingMap.put("PageParamClassName", "com.aprilz.common.core.model.req.PageParam");
+        //字典
+        // globalBindingMap.put("DictFormatClassName", DictFormat.class.getName());
         // DO 类，独有字段
-        globalBindingMap.put("BaseDOClassName", BaseDO.class.getName());
+        globalBindingMap.put("BaseEntityClassName", "com.aprilz.common.core.model.base.BaseEntity");
         globalBindingMap.put("baseDOFields", CodegenBuilder.BASE_DO_FIELDS);
-        globalBindingMap.put("QueryWrapperClassName", LambdaQueryWrapperX.class.getName());
-        globalBindingMap.put("BaseMapperClassName", BaseMapperX.class.getName());
+        globalBindingMap.put("QueryWrapperClassName", "com.aprilz.common.mybatis.mapper.query.LambdaQueryWrapperX");
+        globalBindingMap.put("BaseMapperClassName", "com.aprilz.common.mybatis.mapper.IBaseMapper;");
         // Util 工具类
-        globalBindingMap.put("ServiceExceptionUtilClassName", ServiceExceptionUtil.class.getName());
-        globalBindingMap.put("DateUtilsClassName", DateUtils.class.getName());
-        globalBindingMap.put("ExcelUtilsClassName", ExcelUtils.class.getName());
-//        globalBindingMap.put("ObjectUtilsClassName", ObjectUtils.class.getName());
+        //  globalBindingMap.put("ServiceExceptionUtilClassName", ServiceExceptionUtil.class.getName());
+        globalBindingMap.put("DateUtilsClassName", "com.aprilz.common.core.util.DateUtils");
+        //       globalBindingMap.put("ExcelUtilsClassName", ExcelUtils.class.getName());
+        globalBindingMap.put("ObjectUtilsClassName", "com.aprilz.common.core.util.ObjectUtils");
 //        globalBindingMap.put("DictConvertClassName", DictConvert.class.getName());
-//        globalBindingMap.put("OperateLogClassName", OperateLog.class.getName());
-//        globalBindingMap.put("OperateTypeEnumClassName", OperateTypeEnum.class.getName());
+        globalBindingMap.put("OperateLogClassName", "com.aprilz.common.log.annotations.SystemLog");
+        globalBindingMap.put("OperateTypeEnumClassName", "com.aprilz.common.log.enums.OperateTypeEnum");
     }
 
     public Map<String, String> execute(CodegenTableDO table, List<CodegenColumnDO> columns) {
@@ -145,6 +137,12 @@ public class CodegenEngine {
         bindingMap.put("columns", columns);
         bindingMap.put("primaryColumn", CollectionUtils.findFirst(columns, CodegenColumnDO::getPrimaryKey)); // 主键字段
         bindingMap.put("sceneEnum", CodegenSceneEnum.valueOf(table.getScene()));
+
+        //这里处理过滤校验`字段重复`
+        List<CodegenColumnDO> fieldRepeats = columns.stream().filter(tmp -> tmp.getFieldRepeat()).collect(Collectors.toList());
+        bindingMap.put("fieldRepeats", fieldRepeats);
+
+        bindingMap.put("needExcel",table.getNeedExcel());
 
         // className 相关
         // 去掉指定前缀，将 TestDictType 转换成 DictType. 因为在 create 等方法后，不需要带上 Test 前缀
@@ -156,7 +154,7 @@ public class CodegenEngine {
         String simpleClassNameStrikeCase = toSymbolCase(simpleClassName, '-');
         bindingMap.put("simpleClassName_strikeCase", simpleClassNameStrikeCase);
         // permission 前缀
-        bindingMap.put("permissionPrefix", table.getModuleName() + ":" + simpleClassNameStrikeCase);
+        bindingMap.put("permissionPrefix", table.getModuleName() + ":" + lowerFirst(simpleClassName));
 
         // 执行生成
         final Map<String, String> result = Maps.newLinkedHashMapWithExpectedSize(TEMPLATES.size()); // 有序
@@ -175,7 +173,7 @@ public class CodegenEngine {
                 getStr(bindingMap, "classNameVar"));
         // sceneEnum 包含的字段
         CodegenSceneEnum sceneEnum = (CodegenSceneEnum) bindingMap.get("sceneEnum");
-        filePath = StrUtil.replace(filePath, "${sceneEnum.prefixClass}", sceneEnum.getPrefixClass());
+        //filePath = StrUtil.replace(filePath, "${sceneEnum.prefixClass}", sceneEnum.getPrefixClass());
         filePath = StrUtil.replace(filePath, "${sceneEnum.basePackage}", sceneEnum.getBasePackage());
         // table 包含的字段
         CodegenTableDO table = (CodegenTableDO) bindingMap.get("table");
@@ -196,7 +194,7 @@ public class CodegenEngine {
 
     private static String javaModuleImplControllerFilePath() {
         return javaModuleFilePath("controller/${table.businessName}/" +
-                "${sceneEnum.prefixClass}${table.className}Controller", "biz", "main");
+                "${table.className}Controller", "biz", "main");
     }
 
     private static String javaModuleImplMainFilePath(String path) {
@@ -212,13 +210,15 @@ public class CodegenEngine {
     }
 
     private static String javaModuleFilePath(String path, String module, String src) {
-        return "tiny/" + // 顶级模块
-                "src/" + src + "/java/${basePackage}/" + path + ".java";
+        return "${table.moduleName}-service/" + // 顶级模块
+                "${table.moduleName}-service-" + module + "/" + // 子模块
+                "src/" + src + "/java/${basePackage}/${table.moduleName}/" + path + ".java";
     }
 
     private static String mapperXmlFilePath() {
-        return "tiny/" + // 顶级模块
-                "src/main/resources/mapper/${table.businessName}/${table.className}Mapper.xml";
+        return "${table.moduleName}-service/" + // 顶级模块
+                "${table.moduleName}-service-biz/" + // 子模块
+                "src/main/resources/mapper/${table.className}Mapper.xml";
     }
 
     private static String vueTemplatePath(String path) {
@@ -226,7 +226,7 @@ public class CodegenEngine {
     }
 
     private static String vueFilePath(String path) {
-        return "vue2/" + // 顶级目录
+        return "yudao-ui-${sceneEnum.basePackage}/" + // 顶级目录
                 "src/" + path;
     }
 
@@ -235,7 +235,7 @@ public class CodegenEngine {
     }
 
     private static String vue3FilePath(String path) {
-        return "vue3/" + // 顶级目录
+        return "yudao-ui-${sceneEnum.basePackage}-vue3/" + // 顶级目录
                 "src/" + path;
     }
 }

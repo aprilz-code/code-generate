@@ -1,9 +1,7 @@
 package com.aprilz.generate.controller.codegen.vo;
 
-import cn.hutool.core.util.ObjectUtil;
 import com.aprilz.generate.controller.codegen.vo.column.CodegenColumnBaseVO;
 import com.aprilz.generate.controller.codegen.vo.table.CodegenTableBaseVO;
-import com.aprilz.generate.enums.codegen.CodegenSceneEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -11,7 +9,6 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.validation.Valid;
-import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 

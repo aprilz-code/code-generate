@@ -1,8 +1,8 @@
 package com.aprilz.generate.common.mybatis.mapper;
 
 
+import com.aprilz.generate.common.BaseEntity;
 import com.aprilz.generate.common.api.PageParam;
-import com.aprilz.generate.common.api.PageResult;
 import com.aprilz.generate.utils.MyBatisUtils;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -18,14 +18,12 @@ import java.util.List;
 /**
  * 在 MyBatis Plus 的 BaseMapper 的基础上拓展，提供更多的能力
  */
-public interface BaseMapperX<T> extends BaseMapper<T> {
-
-    default PageResult<T> selectPage(PageParam pageParam, @Param("ew") Wrapper<T> queryWrapper) {
+public interface BaseMapperX<T extends BaseEntity> extends BaseMapper<T> {
+    default IPage<T> selectPage(PageParam pageParam, @Param("ew") Wrapper<T> queryWrapper) {
         // MyBatis Plus 查询
         IPage<T> mpPage = MyBatisUtils.buildPage(pageParam);
         selectPage(mpPage, queryWrapper);
-        // 转换返回
-        return new PageResult<>(mpPage.getRecords(), mpPage.getTotal());
+        return mpPage;
     }
 
     default T selectOne(String field, Object value) {
@@ -96,4 +94,20 @@ public interface BaseMapperX<T> extends BaseMapper<T> {
         update(update, new QueryWrapper<>());
     }
 
+    /**
+     * 批量插入
+     *
+     * @param entityList 对象集合
+     * @return 影响行数
+     */
+    int insertBatchSomeColumn(Collection<T> entityList);
+
+    /**
+     * 通过ID批量更新数据
+     *
+     * @param entityList    对象集合
+     * @param updateWrapper 更新字段Wrapper对象
+     * @return 影响行数
+     */
+    int updateBatchById(@Param("list") Collection<T> entityList, @Param("ew") Wrapper<T> updateWrapper);
 }
