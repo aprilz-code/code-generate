@@ -57,7 +57,7 @@ public interface ${table.className}Service  extends IBaseService<${table.classNa
      * @param pageReqVO 分页查询
      * @return ${table.classComment}分页
      */
-    IPage<${table.className}DO> get${simpleClassName}Page(${sceneEnum.prefixClass}${table.className}PageReqVO pageReqVO);
+    PageInfo<${table.className}DO> get${simpleClassName}Page(${sceneEnum.prefixClass}${table.className}PageReqVO pageReqVO);
 
     /**
      * 获得${table.classComment}列表, 用于 Excel 导出

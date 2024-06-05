@@ -12,7 +12,7 @@ import static cn.hutool.core.util.ArrayUtil.firstMatch;
 @Getter
 public enum CodegenSceneEnum {
 
-    ADMIN(1, "管理后台", "admin", ""),
+    ADMIN(0, "管理后台", "admin", ""),
     APP(2, "用户 APP", "app", "App");
 
     /**

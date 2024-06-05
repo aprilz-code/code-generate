@@ -38,7 +38,7 @@ public class ${sceneEnum.prefixClass}${table.className}Controller {
 
     @PostMapping("/create")
     @ApiOperation("创建${table.classComment}")
-    @SystemLog(module = "${table.classComment}", name = "${table.classComment}-新增", type = OperateTypeEnum.CREATE)
+    @SystemLog(module = "${table.classComment}", name = "${table.classComment}-新增", type = OperateTypeEnum.INSERT)
     #if ($sceneEnum.scene == 1)    @SaCheckPermission("${permissionPrefix}:add")
     #else #end
     public Result<${primaryColumn.javaType}> create${simpleClassName}(@Validated @RequestBody ${sceneEnum.prefixClass}${table.className}CreateReqVO createReqVO) {
@@ -91,8 +91,8 @@ public class ${sceneEnum.prefixClass}${table.className}Controller {
     @ApiOperation("获得${table.classComment}分页")
     @SystemLog(module = "${table.classComment}", name = "${table.classComment}-分页查询", type = OperateTypeEnum.SELECT)
 ###if ($sceneEnum.scene == 1)    @SaCheckPermission("${permissionPrefix}:query")#end
-    public Result<IPage<${sceneEnum.prefixClass}${table.className}RespVO>> get${simpleClassName}Page(@Validated  @RequestBody  ${sceneEnum.prefixClass}${table.className}PageReqVO pageVO) {
-        IPage<${sceneEnum.prefixClass}${table.className}RespVO> pageResult = ${classNameVar}Service.get${simpleClassName}Page(pageVO);
+    public Result<PageInfo<${sceneEnum.prefixClass}${table.className}RespVO>> get${simpleClassName}Page(@Validated  @RequestBody  ${sceneEnum.prefixClass}${table.className}PageReqVO pageVO) {
+        PageInfo<${sceneEnum.prefixClass}${table.className}RespVO> pageResult = ${classNameVar}Service.get${simpleClassName}Page(pageVO);
         return success(pageResult);
     }
 

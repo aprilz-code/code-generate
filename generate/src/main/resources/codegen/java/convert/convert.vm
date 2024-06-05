@@ -27,9 +27,7 @@ public interface ${table.className}Convert {
 
     List<${sceneEnum.prefixClass}${table.className}RespVO> convertList(List<${table.className}DO> list);
 
-    default IPage<${sceneEnum.prefixClass}${table.className}RespVO> convertPage(IPage<${table.className}DO> page){
-        return page.convert(this::convert);
-    };
+    PageInfo<${sceneEnum.prefixClass}${table.className}RespVO> convertPage(PageInfo<${table.className}DO> page);
 
     List<${sceneEnum.prefixClass}${table.className}ExcelVO> convertExcelList(List<${table.className}DO> list);
 

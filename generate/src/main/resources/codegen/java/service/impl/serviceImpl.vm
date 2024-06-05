@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import java.util.*;
 import ${basePackage}.${table.moduleName}.controller.${table.businessName}.vo.*;
 import ${basePackage}.${table.moduleName}.model.db.${table.className}DO;
+import com.github.pagehelper.PageHelper;
 import ${PageResultClassName};
 
 import ${basePackage}.${table.moduleName}.convert.${table.className}Convert;
@@ -59,9 +60,10 @@ public class ${table.className}ServiceImpl extends BaseService<${table.className
     }
 
     @Override
-    public IPage<${sceneEnum.prefixClass}${table.className}RespVO> get${simpleClassName}Page(${sceneEnum.prefixClass}${table.className}PageReqVO pageReqVO) {
-        IPage<${table.className}DO> pageResult = ${classNameVar}Mapper.selectPage(pageReqVO);
-        return ${table.className}Convert.INSTANCE.convertPage(pageResult);
+    public PageInfo<${sceneEnum.prefixClass}${table.className}RespVO> get${simpleClassName}Page(${sceneEnum.prefixClass}${table.className}PageReqVO pageReqVO) {
+        PageHelper.startPage(pageReqVO.getPageNum(), pageReqVO.getPageSize());
+        List<${table.className}DO> pageResult = ${classNameVar}Mapper.selectList(pageReqVO);
+        return ${table.className}Convert.INSTANCE.convertPage(new PageInfo<>(pageResult));
    }
 
     @Override

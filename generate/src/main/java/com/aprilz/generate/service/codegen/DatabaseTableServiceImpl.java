@@ -57,9 +57,12 @@ public class DatabaseTableServiceImpl implements DatabaseTableService {
         DataSourceConfig dataSourceConfig = new DataSourceConfig.Builder(master.getUrl(), master.getUsername(),
                 master.getPassword()).build();
         StrategyConfig.Builder strategyConfig = new StrategyConfig.Builder();
+
         if (StrUtil.isNotEmpty(name)) {
             strategyConfig.addInclude(name);
         }
+        //跳过扫描视图
+        strategyConfig.enableSkipView();
         GlobalConfig globalConfig = new GlobalConfig.Builder().dateType(DateType.TIME_PACK).build(); //  使用 java.time 包下的 LocalDateTime java8 新的时间类型
         ConfigBuilder builder = new ConfigBuilder(null, dataSourceConfig, strategyConfig.build(),
                 null, globalConfig, null);

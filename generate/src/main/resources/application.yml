@@ -1,5 +1,5 @@
 server:
-  port: 8085
+  port: 8086
 
 
 spring:
@@ -19,8 +19,8 @@ spring:
       datasource:
         security:
           url: jdbc:mysql://192.168.1.233:3306/zhgd_security?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true
-          username: zhgd_v2_test
-          password: zhgd_v2_test
+          username: root
+          password: kba6pb7wgs
           driver-class-name: com.mysql.cj.jdbc.Driver
 #        cost:
 #          url: jdbc:mysql://192.168.1.25:3306/hujiang-cloud-dev?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true
