@@ -12,6 +12,10 @@ import io.swagger.annotations.*;
 import javax.validation.constraints.*;
 ## 处理 Date 字段的引入
 #foreach ($column in $columns)
+#if (${column.updateOperation} && ${column.primaryKey} && (!${column.createOperation} || !${column.listOperationResult}))##不是通用字段
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+#end
 #if (${column.updateOperation} && (!${column.createOperation} || !${column.listOperationResult})
     && ${column.javaType} == "LocalDateTime")## 时间类型
 import org.springframework.format.annotation.DateTimeFormat;

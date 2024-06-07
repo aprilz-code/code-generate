@@ -1,6 +1,8 @@
 package ${basePackage}.${table.moduleName}.controller.${table.businessName}.vo;
 
 import lombok.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 #foreach ($column in $columns)
 #if (${column.javaType} == "LocalDateTime")
 import java.time.LocalDateTime;
@@ -24,6 +26,9 @@ public class ${sceneEnum.prefixClass}${table.className}RespVO extends ${sceneEnu
 #foreach ($column in $columns)
 #if (${column.listOperationResult} && (!${column.createOperation} || !${column.updateOperation}))##不是通用字段
     @ApiModelProperty(value = "${column.columnComment}"#if (!${column.nullable}), required = true#end#if ("$!column.example" != ""), example = "${column.example}"#end)
+    #if (${column.primaryKey})
+    @JsonSerialize(using = ToStringSerializer.class)
+    #end
     private ${column.javaType} ${column.javaField};
 
 #end
