@@ -1,7 +1,7 @@
 Mybatis-plus代码生成器
 
 docker build -t  registry.cn-shenzhen.aliyuncs.com/whiteblog/code_gengrate:security .  
-docker push  registry.cn-shenzhen.aliyuncs.com/whiteblog/code_gengrate:security .
+docker push  registry.cn-shenzhen.aliyuncs.com/whiteblog/code_gengrate:security 
 
 docker run -d --name code_gengrate -p 8086:8086 registry.cn-shenzhen.aliyuncs.com/whiteblog/code_gengrate:security registry.cn-shenzhen.aliyuncs.com/whiteblog/code_gengrate:security
 
