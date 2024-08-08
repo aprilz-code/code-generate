@@ -22,6 +22,7 @@ import static ${CommonResultClassName}.success;
 import ${OperateLogClassName};
 import  ${OperateTypeEnumClassName};
 
+import com.hujiang.framework.config.mybatisplus.model.vo.IdReqVO;
 import ${basePackage}.${table.moduleName}.controller.${table.businessName}.vo.*;
 import ${basePackage}.${table.moduleName}.model.db.${table.className}DO;
 import ${basePackage}.${table.moduleName}.convert.${table.className}Convert;
@@ -58,22 +59,20 @@ public class ${sceneEnum.prefixClass}${table.className}Controller {
     @PostMapping("/delete")
     @ApiOperation("删除${table.classComment}")
     @Log(title = "${table.classComment}-删除", businessType = BusinessType.DELETE)
-    @ApiImplicitParam(name = "id", value = "编号", required = true, dataTypeClass = ${primaryColumn.javaType}.class)
 #if ($sceneEnum.scene == 1)    @SaCheckPermission("${permissionPrefix}:del")
     #else #end
-    public Result<Boolean> delete${simpleClassName}(@RequestParam("id") ${primaryColumn.javaType} id) {
-        ${classNameVar}Service.delete${simpleClassName}(id);
+    public Result<Boolean> delete${simpleClassName}(@Validated @RequestBody IdReqVO param) {
+        ${classNameVar}Service.delete${simpleClassName}(param.getId());
         return success(true);
     }
 
-    @GetMapping("/get")
+    @PostMapping("/get")
     @ApiOperation("获得${table.classComment}")
     @Log(title = "${table.classComment}-查询", businessType = BusinessType.VIEW)
-    @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = ${primaryColumn.javaType}.class)
     #if ($sceneEnum.scene == 1)    @SaCheckPermission("${permissionPrefix}:detail")
     #else #end
-    public Result<${sceneEnum.prefixClass}${table.className}RespVO> get${simpleClassName}(@RequestParam("id") ${primaryColumn.javaType} id) {
-        ${table.className}DO ${classNameVar} = ${classNameVar}Service.get${simpleClassName}(id);
+    public Result<${sceneEnum.prefixClass}${table.className}RespVO> get${simpleClassName}(@Validated @RequestBody IdReqVO param) {
+        ${table.className}DO ${classNameVar} = ${classNameVar}Service.get${simpleClassName}(param.getId());
         return success(${table.className}Convert.INSTANCE.convert(${classNameVar}));
     }
 

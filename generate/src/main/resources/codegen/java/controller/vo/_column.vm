@@ -16,7 +16,4 @@
 #if (${column.javaType} == "LocalTime")
 @DateTimeFormat(pattern = FORMAT_HOUR_MINUTE_SECOND)
 #end
-#if (${column.primaryKey})
-    @JsonSerialize(using = ToStringSerializer.class)
-#end
     private ${column.javaType} ${column.javaField};

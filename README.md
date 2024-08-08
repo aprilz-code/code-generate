@@ -1,5 +1,7 @@
 Mybatis-plus代码生成器
 
+mvn clean install  -DMaven.test.skip=true
+
 docker build -t  registry.cn-shenzhen.aliyuncs.com/whiteblog/code_gengrate:security .  
 docker push  registry.cn-shenzhen.aliyuncs.com/whiteblog/code_gengrate:security 
 

@@ -1,4 +1,4 @@
-FROM java:alpine
+FROM openjdk:8u151-jre-alpine
 MAINTAINER liushaohui777@163.com
 ENV TZ=Asia/Shanghai
 ENV LANG C.UTF-8
