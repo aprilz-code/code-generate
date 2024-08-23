@@ -31,7 +31,7 @@ import ${basePackage}.${table.moduleName}.service.${table.className}Service;
 @RestController
 ##二级的 businessName 暂时不算在 HTTP 路径上，可以根据需要写
 @RequestMapping("/${simpleClassName_strikeCase}")
-public class ${sceneEnum.prefixClass}${table.className}Controller {
+public class ${table.className}Controller {
 
     @Resource
     private ${table.className}Service ${classNameVar}Service;

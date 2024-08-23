@@ -61,7 +61,6 @@ public class DatabaseTableServiceImpl implements DatabaseTableService {
             strategyConfig.addInclude(name);
         }
         strategyConfig.enableSkipView();
-        strategyConfig.addExclude("device_view");
         GlobalConfig globalConfig = new GlobalConfig.Builder().dateType(DateType.TIME_PACK).build(); //  使用 java.time 包下的 LocalDateTime java8 新的时间类型
         ConfigBuilder builder = new ConfigBuilder(null, dataSourceConfig, strategyConfig.build(),
                 null, globalConfig, null);
