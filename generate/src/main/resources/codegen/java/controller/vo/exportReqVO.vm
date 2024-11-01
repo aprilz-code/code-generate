@@ -6,26 +6,17 @@ import io.swagger.annotations.*;
 import ${PageParamClassName};
 ## 处理 Date 字段的引入
 #foreach ($column in $columns)
-#if (${column.listOperation} && ${column.javaType} == "LocalDateTime")## 时间类型
+#if (${column.javaType} == "BigDecimal")
+import java.math.BigDecimal;
+#end
+#if (${column.javaType} == "LocalDateTime")
 import java.time.LocalDateTime;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import static ${DateUtilsClassName}.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
-#break
 #end
-#if (${column.createOperation} && ${column.updateOperation} && ${column.listOperationResult}
-&& ${column.javaType} == "LocalDate")
-import org.springframework.format.annotation.DateTimeFormat;
-
-import static ${DateUtilsClassName}.FORMAT_YEAR_MONTH_DAY;
-    #break
+#if (${column.javaType} == "LocalDate")
+import java.time.LocalDate;
 #end
-#if (${column.createOperation} && ${column.updateOperation} && ${column.listOperationResult}
-&& ${column.javaType} == "LocalTime")
-import org.springframework.format.annotation.DateTimeFormat;
-
-import static ${DateUtilsClassName}.FORMAT_HOUR_MINUTE_SECOND;
-    #break
+#if (${column.javaType} == "LocalTime")
+import java.time.LocalTime;
 #end
 #end
 ## 字段模板
@@ -42,7 +33,6 @@ public class ${sceneEnum.prefixClass}${table.className}ExportReqVO {
 #if (${column.listOperation})##查询操作
 #if (${column.listOperationCondition} == "BETWEEN")## 情况一，Between 的时候
     @ApiModelProperty(value = "${column.columnComment}"#if ("$!column.example" != ""), example = "${column.example}"#end)
-    @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private ${column.javaType}[] ${column.javaField};
 #else##情况二，非 Between 的时间
     #columnTpl('', '')

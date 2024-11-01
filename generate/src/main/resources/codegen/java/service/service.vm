@@ -5,6 +5,7 @@ import ${basePackage}.${table.moduleName}.controller.${table.businessName}.vo.*;
 import ${basePackage}.${table.moduleName}.model.db.${table.className}DO;
 import com.hujiang.framework.config.mybatisplus.service.IBaseService;
 import ${PageResultClassName};
+import com.hujiang.framework.config.mybatisplus.model.vo.PageRowVO;
 
 /**
  * ${table.classComment} Service 接口
@@ -57,7 +58,7 @@ public interface ${table.className}Service  extends IBaseService<${table.classNa
      * @param pageReqVO 分页查询
      * @return ${table.classComment}分页
      */
-    PageInfo<${sceneEnum.prefixClass}${table.className}RespVO> get${simpleClassName}Page(${sceneEnum.prefixClass}${table.className}PageReqVO pageReqVO);
+    PageRowVO<${sceneEnum.prefixClass}${table.className}RespVO> get${simpleClassName}Page(${sceneEnum.prefixClass}${table.className}PageReqVO pageReqVO);
 
     /**
      * 获得${table.classComment}列表, 用于 Excel 导出

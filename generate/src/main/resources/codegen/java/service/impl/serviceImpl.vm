@@ -11,6 +11,7 @@ import ${basePackage}.${table.moduleName}.controller.${table.businessName}.vo.*;
 import ${basePackage}.${table.moduleName}.model.db.${table.className}DO;
 import com.github.pagehelper.PageHelper;
 import ${PageResultClassName};
+import com.hujiang.framework.config.mybatisplus.model.vo.PageRowVO;
 
 import ${basePackage}.${table.moduleName}.convert.${table.className}Convert;
 import ${basePackage}.${table.moduleName}.mapper.${table.className}Mapper;
@@ -60,10 +61,11 @@ public class ${table.className}ServiceImpl extends BaseService<${table.className
     }
 
     @Override
-    public PageInfo<${sceneEnum.prefixClass}${table.className}RespVO> get${simpleClassName}Page(${sceneEnum.prefixClass}${table.className}PageReqVO pageReqVO) {
+    public PageRowVO<${sceneEnum.prefixClass}${table.className}RespVO> get${simpleClassName}Page(${sceneEnum.prefixClass}${table.className}PageReqVO pageReqVO) {
         PageHelper.startPage(pageReqVO.getPageNum(), pageReqVO.getPageSize());
         List<${table.className}DO> pageResult = ${classNameVar}Mapper.selectPage(pageReqVO);
-        return ${table.className}Convert.INSTANCE.convertPage(new PageInfo<>(pageResult));
+        PageInfo<${sceneEnum.prefixClass}${table.className}RespVO> pageInfo = ${table.className}Convert.INSTANCE.convertPage(new PageInfo<>(pageResult));
+        return new PageRowVO<>(pageInfo);
    }
 
     @Override

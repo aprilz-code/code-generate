@@ -15,6 +15,7 @@ import javax.validation.constraints.*;
 import java.util.*;
 
 import ${PageResultClassName};
+import com.hujiang.framework.config.mybatisplus.model.vo.PageRowVO;
 import ${CommonResultClassName};
 import static ${CommonResultClassName}.success;
 
@@ -90,8 +91,8 @@ public class ${sceneEnum.prefixClass}${table.className}Controller {
     @ApiOperation("获得${table.classComment}分页")
     @Log(title = "${table.classComment}-分页查询", businessType = BusinessType.VIEW)
 ###if ($sceneEnum.scene == 1)    @SaCheckPermission("${permissionPrefix}:query")#end
-    public Result<PageInfo<${sceneEnum.prefixClass}${table.className}RespVO>> get${simpleClassName}Page(@Validated  @RequestBody  ${sceneEnum.prefixClass}${table.className}PageReqVO pageVO) {
-        PageInfo<${sceneEnum.prefixClass}${table.className}RespVO> pageResult = ${classNameVar}Service.get${simpleClassName}Page(pageVO);
+    public Result<PageRowVO<${sceneEnum.prefixClass}${table.className}RespVO>> get${simpleClassName}Page(@Validated  @RequestBody  ${sceneEnum.prefixClass}${table.className}PageReqVO pageVO) {
+        PageRowVO<${sceneEnum.prefixClass}${table.className}RespVO> pageResult = ${classNameVar}Service.get${simpleClassName}Page(pageVO);
         return success(pageResult);
     }
 
